@@ -1,0 +1,26 @@
+//reset
+ul {
+    padding: 0;
+}
+//<---reset
+
+ul {
+    min-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 2rem;;
+        margin: 0.5rem;
+        list-style-type: none;
+        border-radius: 15px;
+        background-color: #1A1A1C;
+        color: #FAFAFA;
+        width: 20vw;
+        height: 7vw;
+    }
+}

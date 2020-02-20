@@ -1,0 +1,12 @@
+
+<div (click)="handleRoute($event)">
+  <app-panel></app-panel>
+</div>
+<div [ngSwitch]="currentUrl">
+  <app-students *ngSwitchCase="'students'"></app-students>
+  <app-subjects *ngSwitchCase="'subjects'"></app-subjects>
+  <app-statistics *ngSwitchCase="'statistics'"></app-statistics>
+  <app-export *ngSwitchCase="'export'"></app-export>
+</div>
+
+<router-outlet></router-outlet>
