@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { students } from 'src/app/common/constants/constants-students';
+import { Component, OnInit, Input } from '@angular/core';
 import { Student } from 'src/app/common/entities/student';
 
 @Component({
@@ -8,14 +7,12 @@ import { Student } from 'src/app/common/entities/student';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  students: Array<Student>
-  columns: Array<String>
+  @Input() data: Array<Student>
+  @Input() displayedColumns: Array<String>
 
   constructor() { }
 
   ngOnInit(): void {
-    this.students = students;
-    this.columns = ['id', 'name', 'lastName', 'addres', 'description'];
   }
 
 }

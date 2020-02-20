@@ -1,0 +1,14 @@
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    
+    button {
+        width: 5vw;
+        height: 5vw;
+        border-radius: 50%;
+        border-width: 1px;
+        border-color: grey;
+        background-color: white;
+    }
+}

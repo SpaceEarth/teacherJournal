@@ -1,1 +1,17 @@
-<app-table></app-table>
+<app-table
+    *ngIf="!formPage"
+    [data]="students"
+    [displayedColumns]="columns"
+></app-table>
+<app-button
+    *ngIf="!formPage"
+    [buttonText]="'add new user'"
+    (openFormEvent)="openFormEvent()"
+></app-button>
+<app-form 
+    *ngIf="formPage"
+    [instance]="'student'"
+    [formFields]="formFields"
+    [submitName]="'Add'"
+>
+</app-form>
