@@ -5,7 +5,7 @@ export interface Student {
     name: string
     lastName: string
     studentLessonStatistics: Array<StudentLessonStatistics>
-    averageMark?: number
+    averageMark?: number | null
     addres?: string
     description?: string
 }

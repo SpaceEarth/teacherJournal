@@ -32,20 +32,20 @@ export const students: Array<Student> = [
             mark: 8
         }
         ],
-        get averageMark(): number {
+        get averageMark() {
             return getAverageMark(this.studentLessonStatistics);
         },
         addres: "str.Ygkdjsgsj, 93",
         description: "student",
     },
     {
-        id: 1,
-        name: "Aleksey",
-        lastName: "Yasyuchenya",
+        id: 2,
+        name: "Kirill",
+        lastName: "Udslkgfj",
         studentLessonStatistics: [{
             subject: subjects[0],
             date: new Date(2020, 2, 20),
-            mark: 10
+            mark: 5
         }, {
             subject: subjects[0],
             date: new Date(2020, 2, 21),
@@ -53,12 +53,16 @@ export const students: Array<Student> = [
             subject: subjects[1],
             date: new Date(2020, 2, 19),
             mark: 8
+        }, {
+            subject: subjects[1],
+            date: new Date(2020, 2, 23),
+            mark: 8
         }
         ],
-        get averageMark(): number {
+        get averageMark() {
             return getAverageMark(this.studentLessonStatistics);
         },
-        addres: "str.Ygkdjsgsj, 93",
+        addres: "str.Ghfdd, 345",
         description: "student",
     }
 ];
