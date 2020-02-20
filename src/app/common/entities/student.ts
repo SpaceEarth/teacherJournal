@@ -1,14 +1,10 @@
-import { Subject } from './subject';
+import { StudentLessonStatistics } from './studentLessonStatistics';
 
 export interface Student {
     id: number
     name: string
     lastName: string
-    marks: Array<{
-        subject: Subject
-        date: Date
-        mark?: number
-    }>
+    studentLessonStatistics: Array<StudentLessonStatistics>
     averageMark?: number
     addres?: string
     description?: string
