@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./panel.component.scss']
 })
 export class PanelComponent implements OnInit {
-
+  links: Array<string> = ['students', 'subjects', 'statistics', 'export']
+  
   constructor() { }
 
   ngOnInit(): void {

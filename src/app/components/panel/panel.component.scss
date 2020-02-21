@@ -18,11 +18,26 @@ ul {
         margin: 0.5rem;
         list-style-type: none;
         border-radius: 15px;
-        background-color: #1A1A1C;
+        background-color: #545454;
         color: #FAFAFA;
         width: 20vw;
         min-width: 150px;
         height: 7vw;
         min-height: 80px;
+
+        a {
+            color: white;
+            text-decoration: none;
+
+        }
+        
+        a:hover {
+            color: #FF914D;
+            text-decoration: underline;
+        }
+        
+        .active-link {
+            color: #ffac7a;
+        }
     }
 }

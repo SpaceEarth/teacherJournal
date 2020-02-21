@@ -1,7 +1,11 @@
 <h1>Teacher journal</h1>
 <ul>
-    <li>students</li>
-    <li>subjects</li>
-    <li>statistics</li>
-    <li>export</li>
+    <li *ngFor="let link of links">
+        <a 
+            routerLink="/{{link}}" 
+            routerLinkActive="active-link"
+        >
+            {{link | titlecase }}
+        </a>
+    </li>
 </ul>

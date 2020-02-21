@@ -6,15 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  currentUrl: string;
 
-  ngOnInit() {
-    this.currentUrl = 'students';
-  }
+  ngOnInit() { }
 
-  handleRoute(event): void {
-    if (event.target.tagName === "LI") {
-      this.currentUrl = event.target.textContent;
-    }
-  }
 }
