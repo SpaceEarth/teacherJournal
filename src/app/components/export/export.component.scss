@@ -1,0 +1,23 @@
+.wrapper {
+    width: 450px;
+    margin: 100px auto 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+button {
+    background-color: #1A1A1C;
+}
+
+.pdf-export {
+    content: url("../../static/pictures/pdf-icon.png");
+    width: 100px;
+    height: 100px;
+}
+
+.excel-export {
+    content: url("../../static/pictures/excel-icon.svg");
+    // background-color: black;
+    width: 100px;
+    height: 100px;
+}

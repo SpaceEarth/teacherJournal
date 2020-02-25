@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-form',
@@ -6,9 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
-  @Input() instance: string = ""
-	@Input() formFields: Array<string> = []
-	@Input() submitName: string = ""
+  @Input() instance: string = "";
+	@Input() formFields: Array<string> = [];
+	@Input() submitName: string = "";
+  @Output() formData: EventEmitter<Object> = new EventEmitter<Object>();
 
   constructor() { }
 
@@ -16,7 +17,6 @@ export class FormComponent implements OnInit {
   }
 
   onClickSubmit(formData) {
-		
+		this.formData.emit(formData);
   }
-
 }

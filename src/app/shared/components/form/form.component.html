@@ -7,7 +7,7 @@
             </span>
             <input *ngIf="input !== 'Description' else textAreaBlock" class="input-block" type = "text" [name]="input" [placeholder]="input" ngModel>
             <ng-template #textAreaBlock>
-                <textarea class="input-block textArea-block" name="Text1"></textarea>
+                <textarea class="input-block textArea-block" [name]="input" ngModel></textarea>
             </ng-template>
         </div>
         <button type="submit">

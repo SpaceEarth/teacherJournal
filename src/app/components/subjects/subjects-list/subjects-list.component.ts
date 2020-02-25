@@ -3,11 +3,11 @@ import { Subject } from 'src/app/common/entities/subject';
 import { subjects } from 'src/app/common/constants/constants-subjects';
 
 @Component({
-  selector: 'app-subjects',
-  templateUrl: './subjects.component.html',
-  styleUrls: ['./subjects.component.scss']
+  selector: 'app-subjects-list',
+  templateUrl: './subjects-list.component.html',
+  styleUrls: ['./subjects-list.component.scss']
 })
-export class SubjectsComponent implements OnInit {
+export class SubjectsListComponent implements OnInit {
   subjects: Array<Subject> = subjects;
 
   constructor() { }

@@ -6,7 +6,7 @@ ul {
 
 .intro {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     
     .hexagon {
         display: inline-block;
@@ -36,7 +36,6 @@ ul {
         font-size: 2rem;
     }
 }
-
 
 ul {
     margin-top: 52px;
