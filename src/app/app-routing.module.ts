@@ -7,6 +7,7 @@ import { SubjectsListComponent } from './components/subjects/subjects-list/subje
 import { SubjectsFormComponent } from './components/subjects/subjects-form/subjects-form.component';
 import { StudentsTableComponent } from './components/students/students-table/students-table.component';
 import { StudentsFormComponent } from './components/students/students-form/students-form.component';
+import { SubjectsTableComponent } from './components/subjects/subjects-table/subjects-table.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'students-form', component: StudentsFormComponent },
   { path: 'subjects-list', component: SubjectsListComponent },
   { path: 'subjects-form', component: SubjectsFormComponent },
+  { path: 'subjects-table/:id', component: SubjectsTableComponent },
   { path: 'statistics', component: StatisticsComponent },
   { path: 'export', component: ExportComponent },
   { path: 'subjects',

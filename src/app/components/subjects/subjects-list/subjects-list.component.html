@@ -2,7 +2,7 @@
     List of subjects:
 </h2>
 <div class="subject-container">
-    <div *ngFor="let subject of subjects" class="subject-block">
+    <div *ngFor="let subject of subjects" class="subject-block" [routerLink]="['/subjects-table', subject.id]">
         {{subject.name}}
     </div>
 </div>
