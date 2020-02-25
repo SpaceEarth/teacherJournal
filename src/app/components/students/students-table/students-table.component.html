@@ -1,0 +1,9 @@
+<app-table
+    [data]="students"
+    [displayedColumns]="columns"
+></app-table>
+<div class="button-wrapper" [routerLink]="['/students-form']">
+    <app-button
+        [title]="'add new user'"
+    ></app-button>
+</div>
