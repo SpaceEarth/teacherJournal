@@ -1,1 +1,13 @@
-<p>subjects works!</p>
+<h2>
+    List of subjects:
+</h2>
+<div class="subject-container">
+    <div *ngFor="let subject of subjects" class="subject-block">
+        {{subject.name}}
+    </div>
+</div>
+<div class="button-wrapper">
+    <app-button
+        [title]="'add new subject'"
+    ></app-button>
+</div>

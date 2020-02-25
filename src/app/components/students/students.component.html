@@ -8,10 +8,9 @@
     [title]="'add new user'"
     (openFormEvent)="openFormEvent()"
 ></app-button>
-<app-form 
+<app-form
     *ngIf="formPage"
     [instance]="'student'"
     [formFields]="formFields"
     [submitName]="'Add'"
->
-</app-form>
+></app-form>

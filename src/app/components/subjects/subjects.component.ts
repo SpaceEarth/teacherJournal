@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'src/app/common/entities/subject';
+import { subjects } from 'src/app/common/constants/constants-subjects';
 
 @Component({
   selector: 'app-subjects',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subjects.component.scss']
 })
 export class SubjectsComponent implements OnInit {
+  subjects: Array<Subject> = subjects;
 
   constructor() { }
 
