@@ -22,6 +22,7 @@ import { SubjectListComponent } from './components/statistics/list/subject-list/
 import { StudentChartComponent } from './components/statistics/chart/student-chart/student-chart.component';
 import { SubjectChartComponent } from './components/statistics/chart/subject-chart/subject-chart.component';
 import { ItemsListComponent } from './shared/components/items-list/items-list.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ItemsListComponent } from './shared/components/items-list/items-list.co
     SubjectListComponent,
     StudentChartComponent,
     SubjectChartComponent,
-    ItemsListComponent
+    ItemsListComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

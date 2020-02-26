@@ -18,14 +18,15 @@ export class SubjectsTableComponent implements OnInit {
   
   constructor(
     private route: ActivatedRoute,
-  ) { 
-    const id = +this.route.snapshot.paramMap.get("id");
-    this.subject = subjects.find(el => el.id === id);
-  }
+  ) { }
 
   ngOnInit(): void {
+    const id = +this.route.snapshot.paramMap.get("id");
+    this.subject = subjects.find(el => el.id === id);
+    
     this.students = students;
     this.columns = ['name', 'lastName', 'averageMark'];
+    
   }
 
 }

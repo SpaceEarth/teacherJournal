@@ -12,6 +12,7 @@ import { StudentListComponent } from './components/statistics/list/student-list/
 import { SubjectListComponent } from './components/statistics/list/subject-list/subject-list.component';
 import { SubjectChartComponent } from './components/statistics/chart/subject-chart/subject-chart.component';
 import { StudentChartComponent } from './components/statistics/chart/student-chart/student-chart.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 const studentsRoutes: Routes = [
@@ -41,11 +42,7 @@ const routes: Routes = [
     redirectTo: '/students/table',
     pathMatch: 'full',
   },
-  { path: 'not_found', component: ExportComponent },
-  { path: '**', 
-    redirectTo: '/not_found',
-    pathMatch: 'full' 
-  }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
