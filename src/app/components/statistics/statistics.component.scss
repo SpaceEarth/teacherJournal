@@ -1,9 +1,11 @@
+@import 'src/app/styles/global/variables.scss';
+
 .wrapper {
     width: 650px;
     height: 720px;
     margin: 40px auto 0 auto;
     padding: 7px;
-    border: 2px solid rgba(255, 139, 81, 0.712);
+    border: 2px solid $MAIN_COLOR;
     border-radius: 15px;
     display: grid;
     grid-gap: 10px;
@@ -12,9 +14,8 @@
     color: white;
 
     div {
-        // margin: 5px;
         border-radius: 15px;
-        background-color: #545454;
+        background-color: $APPLICATION_TABLE_BACKGROUND_COLOR;
         font-size: 1.5rem;
     }
 
@@ -22,6 +23,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
     }
 
     .students {

@@ -1,8 +1,4 @@
-//reset
-ul {
-    padding: 0;
-}
-//<---reset
+@import 'src/app/styles/global/variables.scss';
 
 .intro {
     display: flex;
@@ -14,7 +10,7 @@ ul {
         margin-top: 18px;
         width: 46px;
         height: 40px;
-        background: #FF914D;
+        background: $MAIN_COLOR;
         position: relative;
     }
     .hexagon:after {
@@ -26,13 +22,13 @@ ul {
         height: 0;
         border-left: 23px solid transparent;
         border-right: 23px solid transparent;
-        border-top: 15px solid #FF914D;
+        border-top: 15px solid $MAIN_COLOR;
     }
 
     h1 {
         margin-left: 21px;
         margin-top: 25px;
-        color: #FFFFFF;
+        color: white;
         font-size: 2rem;
     }
 }
@@ -51,8 +47,7 @@ ul {
         margin: 3px;
         list-style-type: none;
         border-radius: 7px;
-        background-color: #545454;
-        color: #FAFAFA;
+        background-color: $APPLICATION_TABLE_BACKGROUND_COLOR;
         width: 145px;
         height: 45px;
 
@@ -62,12 +57,12 @@ ul {
         }
         
         a:hover {
-            color: #FF914D;
+            color: $MAIN_COLOR;
             text-decoration: underline;
         }
         
         .active-link {
-            color: #ffac7a;
+            color: $ACTIVE_LINK_COLOR;
         }
     }
 }
