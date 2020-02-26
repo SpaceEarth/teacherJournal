@@ -13,6 +13,7 @@ import { SubjectListComponent } from './components/statistics/list/subject-list/
 import { SubjectChartComponent } from './components/statistics/chart/subject-chart/subject-chart.component';
 import { StudentChartComponent } from './components/statistics/chart/student-chart/student-chart.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ExportGuard } from './guards/export.guard';
 
 
 const studentsRoutes: Routes = [
@@ -37,7 +38,7 @@ const routes: Routes = [
     { path: 'subjects/:id', component: SubjectChartComponent, outlet: "statistic-block" },
     { path: 'students/:id', component: StudentChartComponent, outlet: "statistic-block" },
   ] },
-  { path: 'export', component: ExportComponent },
+  { path: 'export', component: ExportComponent, canActivate: [ExportGuard] },
   { path: '',
     redirectTo: '/students/table',
     pathMatch: 'full',
