@@ -1,10 +1,12 @@
+@import 'src/app/styles/global/variables.scss';
+
 table {
     width: 620px;
     margin: 55px auto 0 auto;
-    background-color: #545454;
+    background-color: $APPLICATION_TABLE_BACKGROUND_COLOR;
 
     th {
-        background-color: #102B3E;
+        background-color: $APPLICATION_TABLE_HEADER_BACKGROUND_COLOR;
     }
 
     th, td {
@@ -15,5 +17,4 @@ table {
         font-size: 1.25rem;
         font-family: Arial, Helvetica, sans-serif;
     }
-    // min-width: 600px;
 }
