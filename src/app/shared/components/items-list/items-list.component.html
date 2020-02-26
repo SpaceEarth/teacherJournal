@@ -1,0 +1,5 @@
+<div class="wrapper">
+    <div *ngFor="let item of items" [routerLink]="['/statistics', { outlets: { 'statistic-block': [instanceLink, item.id] } }]">
+        {{item.name}}
+    </div>
+</div>
