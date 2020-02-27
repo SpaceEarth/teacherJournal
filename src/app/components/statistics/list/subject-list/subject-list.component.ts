@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemsList } from 'src/app/common/entities/items-list';
 import { subjects } from 'src/app/common/constants/constants-subjects';
+import { RouteConfig as R} from 'src/app/common/enums/router.enum';
 
 @Component({
   selector: 'app-subject-list',
@@ -8,12 +9,10 @@ import { subjects } from 'src/app/common/constants/constants-subjects';
   styleUrls: ['./subject-list.component.scss']
 })
 export class SubjectListComponent implements OnInit {
-  subjectList: Array<ItemsList> = [];
-  instanceLink: string = 'subjects';
+  public subjectList: Array<ItemsList> = [];
+  public instanceLink: string = R.Subjects;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.subjectList = subjects.map(el => {
       return {
         id: el.id,

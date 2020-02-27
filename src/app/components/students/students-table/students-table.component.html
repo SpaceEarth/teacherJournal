@@ -2,7 +2,7 @@
     [data]="students"
     [displayedColumns]="columns"
 ></app-table>
-<div class="button-wrapper" [routerLink]="['/students', 'form']">
+<div class="button-wrapper" [routerLink]="routerLinkConfig.addNewUser">
     <app-button
         [title]="'add new user'"
     ></app-button>

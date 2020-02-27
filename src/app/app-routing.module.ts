@@ -14,33 +14,33 @@ import { SubjectChartComponent } from './components/statistics/chart/subject-cha
 import { StudentChartComponent } from './components/statistics/chart/student-chart/student-chart.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ExportGuard } from './guards/export.guard';
-
+import { RouteConfig as R, OutletConfig as O } from './common/enums/router.enum';
 
 const studentsRoutes: Routes = [
-  { path: 'table', component: StudentsTableComponent },
-  { path: 'form', component: StudentsFormComponent },
-  { path: '', redirectTo: '/students/table', pathMatch: 'full' },
+  { path: R.Table, component: StudentsTableComponent },
+  { path: R.Form, component: StudentsFormComponent },
+  { path: '', redirectTo: `/${R.Students}/${R.Table}`, pathMatch: 'full' },
 ];
 
 const subjectsRoutes: Routes = [
-  { path: 'list', component: SubjectsListComponent },
-  { path: 'form', component: SubjectsFormComponent },
-  { path: 'table/:id', component: SubjectsTableComponent },
-  { path: '', redirectTo: '/subjects/list', pathMatch: 'full' },
+  { path: R.List, component: SubjectsListComponent },
+  { path: R.Form, component: SubjectsFormComponent },
+  { path: `${R.Table}/:${R.Id}`, component: SubjectsTableComponent },
+  { path: '', redirectTo: `/${R.Subjects}/${R.List}`, pathMatch: 'full' },
 ];
 
 const routes: Routes = [
-  { path: 'students', children: studentsRoutes },
-  { path: 'subjects', children: subjectsRoutes },
-  { path: 'statistics', component: StatisticsComponent, children: [
-    { path: 'subjects', component: SubjectListComponent, outlet: "statistic-list" },
-    { path: 'students', component: StudentListComponent, outlet: "statistic-list" },
-    { path: 'subjects/:id', component: SubjectChartComponent, outlet: "statistic-block" },
-    { path: 'students/:id', component: StudentChartComponent, outlet: "statistic-block" },
+  { path: R.Students, children: studentsRoutes },
+  { path: R.Subjects, children: subjectsRoutes },
+  { path: R.Statistics, component: StatisticsComponent, children: [
+    { path: R.Students, component: StudentListComponent, outlet: O.StatisticList },
+    { path: R.Subjects, component: SubjectListComponent, outlet: O.StatisticList },
+    { path: `${R.Students}/:${R.Id}`, component: StudentChartComponent, outlet: O.StatisticBlock },
+    { path: `${R.Subjects}/:${R.Id}`, component: SubjectChartComponent, outlet: O.StatisticBlock },
   ] },
-  { path: 'export', component: ExportComponent, canActivate: [ExportGuard] },
+  { path: R.Export, component: ExportComponent, canActivate: [ExportGuard] },
   { path: '',
-    redirectTo: '/students/table',
+    redirectTo: `/${R.Students}/${R.Table}`,
     pathMatch: 'full',
   },
   { path: '**', component: NotFoundComponent }

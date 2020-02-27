@@ -1,16 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouteConfig as R } from 'src/app/common/enums/router.enum';
 
 @Component({
   selector: 'app-panel',
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.scss']
 })
-export class PanelComponent implements OnInit {
-  links: Array<string> = ['students', 'subjects', 'statistics', 'export']
-  
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class PanelComponent {
+  public links: Array<string> = [R.Students, R.Subjects, R.Statistics, R.Export];
 }

@@ -1,17 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-subjects-form',
   templateUrl: './subjects-form.component.html',
   styleUrls: ['./subjects-form.component.scss']
 })
-export class SubjectsFormComponent implements OnInit {
-  formFields: Array<string> = ['* Name', '* Teacher', 'Cabiner', 'Description'];
-
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class SubjectsFormComponent {
+  public formFields: Array<string> = ['* Name', '* Teacher', 'Cabiner', 'Description'];
 }

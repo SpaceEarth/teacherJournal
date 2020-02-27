@@ -55,7 +55,7 @@
         ]
       }
     ],
-    "no-any": true,
+    "no-any": false,
     "no-arg": true,
     "no-bitwise": true,
     "no-conditional-assignment": true,
@@ -95,7 +95,7 @@
     ],
     "quotemark": [
       true,
-      "double",
+      "single",
       "avoid-escape"
     ],
     "radix": true,

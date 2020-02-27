@@ -1,7 +1,10 @@
-import { Subject } from './subject';
+import { SubjectViewModel } from './subjectViewModel';
 
-export interface StudentLessonStatistics {
-    subject: Subject
-    date: Date
-    mark?: number
+export class StudentLessonStatistics {
+
+    constructor(
+        public subject: SubjectViewModel,
+        public date: Date,
+        public mark?: number
+    ) {}
 }

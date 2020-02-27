@@ -6,11 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./students-form.component.scss']
 })
 export class StudentsFormComponent implements OnInit {
-  formFields: Array<string>;
+  public formFields: Array<string> = [];
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.formFields = ['* Name', '* Last Name', 'Address', 'Description'];
   }
 

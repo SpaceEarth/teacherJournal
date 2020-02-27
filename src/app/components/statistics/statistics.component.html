@@ -1,8 +1,8 @@
 <div class="wrapper">
-    <div class="students" [routerLink]="['/statistics', { outlets: { 'statistic-list': ['students'] } }]">
+    <div class="students" [routerLink]="routerLinkConfig.students">
         Students
     </div>
-    <div class="subjects" [routerLink]="['/statistics', { outlets: { 'statistic-list': ['subjects'] } }]">
+    <div class="subjects" [routerLink]="routerLinkConfig.subjects">
         Subjects
     </div>
     <div class="list-of-entities">

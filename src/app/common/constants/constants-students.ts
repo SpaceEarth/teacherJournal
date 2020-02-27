@@ -1,68 +1,21 @@
-import { Student } from "../entities/student";
-import { subjects } from "./constants-subjects";
+import { StudentViewModel } from '../entities/student';
+import { subjects } from './constants-subjects';
 import { StudentLessonStatistics } from '../entities/studentLessonStatistics';
 
-function getAverageMark(lessonsStat: Array<StudentLessonStatistics>) {
-    const marks = lessonsStat
-        .filter((el) => el.hasOwnProperty('mark'))
-        .map((el) => el.mark);
+const marks: Array<StudentLessonStatistics> = [
+    new StudentLessonStatistics(subjects[0], new Date(2020, 2, 20), 10),
+    new StudentLessonStatistics(subjects[0], new Date(2020, 2, 21)),
+    new StudentLessonStatistics(subjects[1], new Date(2020, 2, 19), 8)
+];
 
-    if (marks.length > 0) {
-        return marks.reduce((acc, el) => acc + el, 0) / marks.length;
-    }
+const marks2: Array<StudentLessonStatistics> = [
+    new StudentLessonStatistics(subjects[0], new Date(2020, 2, 20), 5),
+    new StudentLessonStatistics(subjects[0], new Date(2020, 2, 21)),
+    new StudentLessonStatistics(subjects[0], new Date(2020, 2, 19), 8),
+    new StudentLessonStatistics(subjects[0], new Date(2020, 2, 23), 8)
+];
 
-    return null;  
-}
-
-export const students: Array<Student> = [
-    {
-        id: 1,
-        name: "Aleksey",
-        lastName: "Yasyuchenya",
-        studentLessonStatistics: [{
-            subject: subjects[0],
-            date: new Date(2020, 2, 20),
-            mark: 10
-        }, {
-            subject: subjects[0],
-            date: new Date(2020, 2, 21),
-        }, {
-            subject: subjects[1],
-            date: new Date(2020, 2, 19),
-            mark: 8
-        }
-        ],
-        get averageMark() {
-            return getAverageMark(this.studentLessonStatistics);
-        },
-        addres: "str.Ygkdjsgsj, 93",
-        description: "student",
-    },
-    {
-        id: 2,
-        name: "Kirill",
-        lastName: "Udslkgfj",
-        studentLessonStatistics: [{
-            subject: subjects[0],
-            date: new Date(2020, 2, 20),
-            mark: 5
-        }, {
-            subject: subjects[0],
-            date: new Date(2020, 2, 21),
-        }, {
-            subject: subjects[1],
-            date: new Date(2020, 2, 19),
-            mark: 8
-        }, {
-            subject: subjects[1],
-            date: new Date(2020, 2, 23),
-            mark: 8
-        }
-        ],
-        get averageMark() {
-            return getAverageMark(this.studentLessonStatistics);
-        },
-        addres: "str.Ghfdd, 345",
-        description: "student",
-    }
+export const students: Array<StudentViewModel> = [
+    new StudentViewModel(1, 'Aleksey', 'Yasyuchenya', marks , 'str.Ygkdjsgsj, 93', 'student'),
+    new StudentViewModel(2, 'Kirill', 'Udslkgfj', marks2 , 'str.Ghfdd, 345', 'student')
 ];

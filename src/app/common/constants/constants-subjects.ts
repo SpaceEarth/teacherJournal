@@ -1,30 +1,8 @@
-import { Subject } from '../entities/subject';
+import { SubjectViewModel } from '../entities/subjectViewModel';
 
-export const subjects: Array<Subject> = [
-    {
-        id: 1,
-        name: "Physics",
-        teacher: "Agls Yljassdf",
-    },
-    {
-        id: 2,
-        name: "Chemistry",
-        teacher: "Frkjle Kgkrgjl",
-        cabiner: "B3.1",
-        description: "subject ++",
-    },
-    {
-        id: 3,
-        name: "Biology",
-        teacher: "Frkjle Kgkrgjl",
-        cabiner: "B3.1",
-        description: "subject ++",
-    },
-    {
-        id: 4,
-        name: "Literature",
-        teacher: "Frkjle Kgkrgjl",
-        cabiner: "B3.1",
-        description: "subject ++",
-    },
+export const subjects: Array<SubjectViewModel> = [
+    new SubjectViewModel(1, 'Physics', 'Agls Yljassdf'),
+    new SubjectViewModel(2, 'Chemistry', 'Frkjle Kgkrgjl', 'B3.1', 'subject ++'),
+    new SubjectViewModel(3, 'Biology', 'Frkjle Kgkrgjl', 'B3.1', 'subject ++'),
+    new SubjectViewModel(4, 'Literature', 'Frkjle Kgkrgjl', 'B3.1', 'subject ++'),
 ];
