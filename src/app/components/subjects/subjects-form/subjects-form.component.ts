@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormConfig } from 'src/app/shared/components/form/form.component';
 
 @Component({
   selector: 'app-subjects-form',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./subjects-form.component.scss']
 })
 export class SubjectsFormComponent {
-  public formFields: Array<string> = ['* Name', '* Teacher', 'Cabiner', 'Description'];
+  public formFieldsConfig: Array<FormConfig> = [
+    new FormConfig('* Name', true),
+    new FormConfig('* Teacher', true),
+    new FormConfig('Cabiner', false),
+    new FormConfig('Description', false)
+  ];
 }

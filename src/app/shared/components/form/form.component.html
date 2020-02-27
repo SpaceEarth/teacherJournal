@@ -1,13 +1,24 @@
 <h2>Add new {{instance}}</h2>
 <div class="form-wrapper">    
-    <form #login="ngForm" (ngSubmit) = "onClickSubmit(login.value)" >
-        <div *ngFor="let input of formFields">
+    <form #login="ngForm" (ngSubmit)="onClickSubmit(login.value)" >
+        <div *ngFor="let field of formFieldsConfig">
             <span> 
-                {{input}} 
+                {{field.name}} 
             </span>
-            <input *ngIf="input !== 'Description' else textAreaBlock" class="input-block" type = "text" [name]="input" [placeholder]="input" ngModel>
+            <input 
+                *ngIf="field.name !== 'Description' else textAreaBlock"
+                class="input-block" 
+                type="text" 
+                [name]="field.name" 
+                [placeholder]="field.name" 
+                ngModel
+            >
             <ng-template #textAreaBlock>
-                <textarea class="input-block textArea-block" [name]="input" ngModel></textarea>
+                <textarea 
+                    class="input-block textArea-block" 
+                    [name]="field.name" 
+                    ngModel
+                ></textarea>
             </ng-template>
         </div>
         <button type="submit">

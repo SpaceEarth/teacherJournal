@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormConfig } from 'src/app/shared/components/form/form.component';
 
 @Component({
   selector: 'app-students-form',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./students-form.component.scss']
 })
 export class StudentsFormComponent implements OnInit {
-  public formFields: Array<string> = [];
+  public formFieldsConfig: Array<FormConfig> = [];
 
   public ngOnInit(): void {
-    this.formFields = ['* Name', '* Last Name', 'Address', 'Description'];
+    this.formFieldsConfig = [
+      new FormConfig('* Name', true),
+      new FormConfig('* Last Name', true),
+      new FormConfig('Address', false),
+      new FormConfig('Description', false),
+    ];
   }
 
 }

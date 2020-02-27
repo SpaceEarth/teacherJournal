@@ -17,5 +17,8 @@ const marks2: Array<StudentLessonStatistics> = [
 
 export const students: Array<StudentViewModel> = [
     new StudentViewModel(1, 'Aleksey', 'Yasyuchenya', marks , 'str.Ygkdjsgsj, 93', 'student'),
-    new StudentViewModel(2, 'Kirill', 'Udslkgfj', marks2 , 'str.Ghfdd, 345', 'student')
+    new StudentViewModel(2, 'Kirill', 'Udslkgfj', marks2 , 'str.Ghfdd, 345', 'student'),
+    new StudentViewModel(3, 'Gdfgreh', 'Udslkgfj', marks2 , 'str.Ghfdd, 345', 'student'),
+    new StudentViewModel(4, 'Argree', 'Udslkgfj', marks2 , 'str.Ghfdd, 345', 'student'),
+    new StudentViewModel(5, 'Brfgreg', 'Udslkgfj', marks2 , 'str.Ghfdd, 345', 'student')
 ];
