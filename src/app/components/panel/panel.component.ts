@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouteConfig as R } from 'src/app/common/enums/router.enum';
+import { JournalRoutes } from 'src/app/common/enums/router.enum';
 
 @Component({
   selector: 'app-panel',
@@ -7,5 +7,10 @@ import { RouteConfig as R } from 'src/app/common/enums/router.enum';
   styleUrls: ['./panel.component.scss']
 })
 export class PanelComponent {
-  public links: Array<string> = [R.Students, R.Subjects, R.Statistics, R.Export];
+  public links: Array<string> = [
+    JournalRoutes.Students,
+    JournalRoutes.Subjects,
+    JournalRoutes.Statistics,
+    JournalRoutes.Export
+  ];
 }

@@ -14,33 +14,33 @@ import { SubjectChartComponent } from './components/statistics/chart/subject-cha
 import { StudentChartComponent } from './components/statistics/chart/student-chart/student-chart.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ExportGuard } from './guards/export.guard';
-import { RouteConfig as R, OutletConfig as O } from './common/enums/router.enum';
+import { JournalRoutes, JournalOutlets } from './common/enums/router.enum';
 
 const studentsRoutes: Routes = [
-  { path: R.Table, component: StudentsTableComponent },
-  { path: R.Form, component: StudentsFormComponent },
-  { path: '', redirectTo: `/${R.Students}/${R.Table}`, pathMatch: 'full' },
+  { path: JournalRoutes.Table, component: StudentsTableComponent },
+  { path: JournalRoutes.Form, component: StudentsFormComponent },
+  { path: '', redirectTo: `/${JournalRoutes.Students}/${JournalRoutes.Table}`, pathMatch: 'full' },
 ];
 
 const subjectsRoutes: Routes = [
-  { path: R.List, component: SubjectsListComponent },
-  { path: R.Form, component: SubjectsFormComponent },
-  { path: `${R.Table}/:${R.Id}`, component: SubjectsTableComponent },
-  { path: '', redirectTo: `/${R.Subjects}/${R.List}`, pathMatch: 'full' },
+  { path: JournalRoutes.List, component: SubjectsListComponent },
+  { path: JournalRoutes.Form, component: SubjectsFormComponent },
+  { path: `${JournalRoutes.Table}/:${JournalRoutes.Id}`, component: SubjectsTableComponent },
+  { path: '', redirectTo: `/${JournalRoutes.Subjects}/${JournalRoutes.List}`, pathMatch: 'full' },
 ];
 
 const routes: Routes = [
-  { path: R.Students, children: studentsRoutes },
-  { path: R.Subjects, children: subjectsRoutes },
-  { path: R.Statistics, component: StatisticsComponent, children: [
-    { path: R.Students, component: StudentListComponent, outlet: O.StatisticList },
-    { path: R.Subjects, component: SubjectListComponent, outlet: O.StatisticList },
-    { path: `${R.Students}/:${R.Id}`, component: StudentChartComponent, outlet: O.StatisticBlock },
-    { path: `${R.Subjects}/:${R.Id}`, component: SubjectChartComponent, outlet: O.StatisticBlock },
+  { path: JournalRoutes.Students, children: studentsRoutes },
+  { path: JournalRoutes.Subjects, children: subjectsRoutes },
+  { path: JournalRoutes.Statistics, component: StatisticsComponent, children: [
+    { path: JournalRoutes.Students, component: StudentListComponent, outlet: JournalOutlets.StatisticList },
+    { path: JournalRoutes.Subjects, component: SubjectListComponent, outlet: JournalOutlets.StatisticList },
+    { path: `${JournalRoutes.Students}/:${JournalRoutes.Id}`, component: StudentChartComponent, outlet: JournalOutlets.StatisticBlock },
+    { path: `${JournalRoutes.Subjects}/:${JournalRoutes.Id}`, component: SubjectChartComponent, outlet: JournalOutlets.StatisticBlock },
   ] },
-  { path: R.Export, component: ExportComponent, canActivate: [ExportGuard] },
+  { path: JournalRoutes.Export, component: ExportComponent, canActivate: [ExportGuard] },
   { path: '',
-    redirectTo: `/${R.Students}/${R.Table}`,
+    redirectTo: `/${JournalRoutes.Students}/${JournalRoutes.Table}`,
     pathMatch: 'full',
   },
   { path: '**', component: NotFoundComponent }

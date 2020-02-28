@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemsList } from 'src/app/common/entities/items-list';
 import { students } from 'src/app/common/constants/constants-students';
-import { RouteConfig as R} from 'src/app/common/enums/router.enum';
+import { JournalRoutes } from 'src/app/common/enums/router.enum';
 
 @Component({
   selector: 'app-student-list',
@@ -10,7 +10,7 @@ import { RouteConfig as R} from 'src/app/common/enums/router.enum';
 })
 export class StudentListComponent implements OnInit {
   public studentList: Array<ItemsList> = [];
-  public instanceLink: string = R.Students;
+  public instanceLink: string = JournalRoutes.Students;
 
   public ngOnInit(): void {
     this.studentList = students.map(el => {

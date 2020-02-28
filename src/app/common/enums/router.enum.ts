@@ -1,4 +1,4 @@
-export enum RouteConfig {
+export enum JournalRoutes {
     Students = 'students',
     Subjects = 'subjects',
     Statistics = 'statistics',
@@ -9,7 +9,7 @@ export enum RouteConfig {
     Id = 'id',
 }
 
-export enum OutletConfig {
+export enum JournalOutlets {
     StatisticList = 'statistic-list',
     StatisticBlock = 'statistic-block',
 }

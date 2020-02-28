@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentViewModel } from 'src/app/common/entities/student';
 import { students } from 'src/app/common/constants/constants-students';
-import { RouteConfig as R } from 'src/app/common/enums/router.enum';
+import { JournalRoutes } from 'src/app/common/enums/router.enum';
 
 @Component({
   selector: 'app-students-table',
@@ -12,7 +12,7 @@ export class StudentsTableComponent implements OnInit {
   public students: Array<StudentViewModel> = [];
   public columns: Array<string> = [];
   public routerLinkConfig: {[key: string]: string | any[]} = {
-    addNewUser: [`/${R.Students}`, R.Form],
+    addNewUser: [`/${JournalRoutes.Students}`, JournalRoutes.Form],
   };
 
   public ngOnInit(): void {
