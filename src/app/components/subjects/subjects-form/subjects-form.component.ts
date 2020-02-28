@@ -1,16 +1,35 @@
 import { Component } from '@angular/core';
-import { FormConfig } from 'src/app/shared/components/form/form.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormConfig } from 'src/app/common/entities/formConfig';
 
 @Component({
   selector: 'app-subjects-form',
-  templateUrl: './subjects-form.component.html',
-  styleUrls: ['./subjects-form.component.scss']
+  templateUrl: '/src/app/templates/global/form.html',
+  styleUrls: [
+    '/src/app/styles/global/form.scss',
+    './subjects-form.component.scss'
+  ]
 })
 export class SubjectsFormComponent {
-  public formFieldsConfig: Array<FormConfig> = [
-    new FormConfig('* Name', true),
-    new FormConfig('* Teacher', true),
-    new FormConfig('Cabiner', false),
-    new FormConfig('Description', false)
+  public studentForm: FormGroup = this.fb.group({
+    'name': ['', Validators.required],
+    'teacher': ['', Validators.required],
+    'cabiner': [''],
+    'description': ['']
+  });
+  public formFieldsConfig: FormConfig[] = [
+    new FormConfig('name', 'name', true),
+    new FormConfig('teacher', 'teacher', true),
+    new FormConfig('cabiner', 'cabiner', false)
   ];
+  public instance: string = 'subject';
+
+  constructor(
+    private fb: FormBuilder
+  ) {}
+
+  public onSubmit(): void {
+    console.log(this.studentForm.value);
+  }
+
 }

@@ -1,0 +1,24 @@
+<h2>Add new {{instance | titlecase}}</h2>
+<div class="form-wrapper">    
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+        <div *ngFor="let field of formFieldsConfig">
+            <label>
+                {{field.name | titlecase}}:
+                <input 
+                    class="input-block"
+                    type="text"
+                    [formControlName]="field.formControlName"
+                >
+            </label>
+        </div>
+        <div>
+            Description:
+            <textarea 
+                class="input-block textArea-block" 
+                formControlName="description"
+            ></textarea>
+        </div>
+        
+        <button type="submit" [disabled]="!studentForm.valid">Add</button>
+    </form>
+</div>
