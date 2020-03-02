@@ -23,6 +23,7 @@ export class StudentsFormComponent {
 
   public onSubmit(): void {
     console.log(this.studentForm.value);
+    this.studentForm.reset();
   }
 
 }

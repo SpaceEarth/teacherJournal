@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   ]
 })
 export class SubjectsFormComponent {
-  public studentForm: FormGroup = this.fb.group({
+  public subjectForm: FormGroup = this.fb.group({
     'name': ['', Validators.required],
     'teacher': ['', Validators.required],
     'cabiner': [''],
@@ -22,7 +22,8 @@ export class SubjectsFormComponent {
   ) {}
 
   public onSubmit(): void {
-    console.log(this.studentForm.value);
+    console.log(this.subjectForm.value);
+    this.subjectForm.reset();
   }
 
 }

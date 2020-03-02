@@ -1,6 +1,6 @@
 <h2>Add new Subject</h2>
 <div class="form-wrapper">
-    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
         <div>
             <label>
                 Name:
@@ -24,6 +24,6 @@
             <textarea class="input-block textArea-block" formControlName="description"></textarea>
         </div>
         
-        <button type="submit" [disabled]="!studentForm.valid">Add</button>
+        <button type="submit" [disabled]="!subjectForm.valid">Add</button>
     </form>
 </div>
