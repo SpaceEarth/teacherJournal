@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { StudentViewModel } from 'src/app/common/entities/student';
+import { Student } from 'src/app/common/entities/student';
 
 @Component({
   selector: 'app-table',
@@ -7,7 +7,7 @@ import { StudentViewModel } from 'src/app/common/entities/student';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
-  @Input() public data: Array<StudentViewModel> = [];
+  @Input() public data: Array<Student> = [];
   @Input() public displayedColumns: Array<String> = [];
 
 }

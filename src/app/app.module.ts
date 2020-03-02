@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './root/app.component';
@@ -48,6 +49,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     BrowserAnimationsModule,
     MatTableModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule,
   ],
   providers: [],

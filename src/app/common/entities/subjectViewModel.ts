@@ -1,4 +1,4 @@
-export class SubjectViewModel {
+export class StudentSubject {
 
     constructor(
         public id: number,

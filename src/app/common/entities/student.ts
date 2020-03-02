@@ -12,11 +12,11 @@ import { StudentLessonStatistics } from './studentLessonStatistics';
 //     }
 
 //     public get averageMark(): number | undefined {
-//         return StudentViewModel.formatMarks(this.studentLessonStatistics);
+//         return Student.formatMarks(this.studentLessonStatistics);
 //     }
 // }
 
-export class StudentViewModel {
+export class Student {
 
     constructor(
         public id: number,

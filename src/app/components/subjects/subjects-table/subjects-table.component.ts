@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentViewModel } from 'src/app/common/entities/student';
-import { students } from 'src/app/common/constants/constants-students';
+import { Student } from 'src/app/common/entities/student';
 import { ActivatedRoute } from '@angular/router';
-import { SubjectViewModel } from 'src/app/common/entities/subjectViewModel';
-import { subjects } from 'src/app/common/constants/constants-subjects';
+import { StudentSubject } from 'src/app/common/entities/subjectViewModel';
+import { JournalReqDataService } from 'src/app/services/journal-req-data.service';
+import { Observable } from 'rxjs';
+import { map, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-subjects-table',
@@ -11,18 +12,26 @@ import { subjects } from 'src/app/common/constants/constants-subjects';
   styleUrls: ['./subjects-table.component.scss']
 })
 export class SubjectsTableComponent implements OnInit {
-  public students: Array<StudentViewModel> = [];
-  public columns: Array<string> = [];
-  public subject: SubjectViewModel;
+  public studentSubject: Observable<StudentSubject>;
+  public students: Observable<Student[]>;
+  public columns: string[];
 
   constructor(
     private route: ActivatedRoute,
+    private journalReqDataService: JournalReqDataService
   ) { }
 
   public ngOnInit(): void {
     const id: number = +this.route.snapshot.paramMap.get('id');
-    this.subject = subjects.find(el => el.id === id);
-    this.students = students;
+    this.studentSubject = this.journalReqDataService
+      .getSubjectData()
+      .pipe(
+        // delay(1000),
+        map((arr) => {
+          return arr.find(el => el.id === id);
+        })
+      );
+    this.students = this.journalReqDataService.getStudentsData();
     this.columns = ['name', 'lastName', 'averageMark'];
   }
 

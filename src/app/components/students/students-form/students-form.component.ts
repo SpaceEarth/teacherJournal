@@ -17,6 +17,7 @@ export class StudentsFormComponent {
     'address': [''],
     'description': ['']
   });
+
   public formFieldsConfig: FormConfig[] = [
     new FormConfig('name', 'name', true),
     new FormConfig('lastName', 'last name', true),

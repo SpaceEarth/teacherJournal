@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentViewModel } from 'src/app/common/entities/student';
+import { Student } from 'src/app/common/entities/student';
 import { students } from 'src/app/common/constants/constants-students';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
 
@@ -9,7 +9,7 @@ import { JournalRoutes } from 'src/app/common/enums/router.enum';
   styleUrls: ['./students-table.component.scss']
 })
 export class StudentsTableComponent implements OnInit {
-  public students: Array<StudentViewModel> = [];
+  public students: Array<Student> = [];
   public columns: Array<string> = [];
   public routerLinkConfig: {[key: string]: string | any[]} = {
     addNewUser: [`/${JournalRoutes.Students}`, JournalRoutes.Form],

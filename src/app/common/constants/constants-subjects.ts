@@ -1,8 +1,8 @@
-import { SubjectViewModel } from '../entities/subjectViewModel';
+import { StudentSubject } from '../entities/subjectViewModel';
 
-export const subjects: Array<SubjectViewModel> = [
-    new SubjectViewModel(1, 'Physics', 'Agls Yljassdf'),
-    new SubjectViewModel(2, 'Chemistry', 'Frkjle Kgkrgjl', 'B3.1', 'subject ++'),
-    new SubjectViewModel(3, 'Biology', 'Frkjle Kgkrgjl', 'B3.1', 'subject ++'),
-    new SubjectViewModel(4, 'Literature', 'Frkjle Kgkrgjl', 'B3.1', 'subject ++'),
+export const studentSubjects: Array<StudentSubject> = [
+    new StudentSubject(1, 'Physics', 'Agls Yljassdf'),
+    new StudentSubject(2, 'Chemistry', 'Frkjle Kgkrgjl', 'B3.1', 'subject ++'),
+    new StudentSubject(3, 'Biology', 'Frkjle Kgkrgjl', 'B3.1', 'subject ++'),
+    new StudentSubject(4, 'Literature', 'Frkjle Kgkrgjl', 'B3.1', 'subject ++'),
 ];
