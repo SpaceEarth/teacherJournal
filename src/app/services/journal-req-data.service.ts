@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Student } from '../common/entities/student';
-import { StudentSubject } from '../common/entities/subjectViewModel';
+import { StudentSubject } from '../common/entities/studentSubject';
 import { students } from '../common/constants/constants-students';
 import { studentSubjects } from '../common/constants/constants-subjects';
 

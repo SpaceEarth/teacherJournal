@@ -1,4 +1,4 @@
-import { StudentSubject } from './subjectViewModel';
+import { StudentSubject } from './studentSubject';
 
 export class StudentLessonStatistics {
 

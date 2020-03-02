@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormConfig } from 'src/app/common/entities/formConfig';
 
 @Component({
   selector: 'app-subjects-form',
-  templateUrl: '/src/app/templates/global/form.html',
+  templateUrl: './subjects-form.component.html',
   styleUrls: [
     '/src/app/styles/global/form.scss',
     './subjects-form.component.scss'
@@ -17,12 +16,6 @@ export class SubjectsFormComponent {
     'cabiner': [''],
     'description': ['']
   });
-  public formFieldsConfig: FormConfig[] = [
-    new FormConfig('name', 'name', true),
-    new FormConfig('teacher', 'teacher', true),
-    new FormConfig('cabiner', 'cabiner', false)
-  ];
-  public instance: string = 'subject';
 
   constructor(
     private fb: FormBuilder

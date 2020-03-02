@@ -1,4 +1,4 @@
-import { StudentSubject } from '../entities/subjectViewModel';
+import { StudentSubject } from '../entities/studentSubject';
 
 export const studentSubjects: Array<StudentSubject> = [
     new StudentSubject(1, 'Physics', 'Agls Yljassdf'),

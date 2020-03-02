@@ -1,0 +1,32 @@
+<h2>Add new Student</h2>
+<div class="form-wrapper">    
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label>
+                Name:
+                <input class="input-block" type="text" formControlName="name">
+            </label>
+        </div>
+        <div>
+            <label>
+                Last name:
+                <input class="input-block" type="text" formControlName="lastName">
+            </label>
+        </div>
+        <div>
+            <label>
+                Address:
+                <input class="input-block" type="text" formControlName="address">
+            </label>
+        </div>
+        <div>
+            Description:
+            <textarea 
+                class="input-block textArea-block" 
+                formControlName="description"
+            ></textarea>
+        </div>
+        
+        <button type="submit" [disabled]="!studentForm.valid">Add</button>
+    </form>
+</div>

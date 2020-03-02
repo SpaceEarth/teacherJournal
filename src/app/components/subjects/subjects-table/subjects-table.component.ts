@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from 'src/app/common/entities/student';
 import { ActivatedRoute } from '@angular/router';
-import { StudentSubject } from 'src/app/common/entities/subjectViewModel';
+import { StudentSubject } from 'src/app/common/entities/studentSubject';
 import { JournalReqDataService } from 'src/app/services/journal-req-data.service';
 import { Observable } from 'rxjs';
 import { map, delay } from 'rxjs/operators';

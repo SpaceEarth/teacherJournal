@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from 'src/app/common/entities/student';
 import { students } from 'src/app/common/constants/constants-students';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
+import { Observable } from 'rxjs';
+import { JournalReqDataService } from 'src/app/services/journal-req-data.service';
 
 @Component({
   selector: 'app-students-table',
@@ -9,14 +11,18 @@ import { JournalRoutes } from 'src/app/common/enums/router.enum';
   styleUrls: ['./students-table.component.scss']
 })
 export class StudentsTableComponent implements OnInit {
-  public students: Array<Student> = [];
-  public columns: Array<string> = [];
+  public students: Observable<Student[]>;
+  public columns: string[] = [];
   public routerLinkConfig: {[key: string]: string | any[]} = {
     addNewUser: [`/${JournalRoutes.Students}`, JournalRoutes.Form],
   };
 
+  constructor(
+    private journalReqDataService: JournalReqDataService
+  ) {}
+
   public ngOnInit(): void {
-    this.students = students;
+    this.students = this.journalReqDataService.getStudentsData();
     this.columns = ['id', 'name', 'lastName', 'addres', 'description'];
   }
 

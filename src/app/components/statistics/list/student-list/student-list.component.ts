@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemsList } from 'src/app/common/entities/items-list';
-// import { students } from 'src/app/common/constants/constants-students';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
 import { Observable } from 'rxjs';
 import { JournalReqDataService } from 'src/app/services/journal-req-data.service';
