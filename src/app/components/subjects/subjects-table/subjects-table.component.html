@@ -1,9 +1,7 @@
-<h2>
-    {{(studentSubject | async).name}}
-    <!-- {{subjectName | async}} -->
+<h2 *ngIf="(studentSubject$ | async) as subject">
+    {{subject && subject.name}}
 </h2>
-<!-- [data]="students | async"  -->
 <app-table
-    [data]="students"
+    [data]="subjectTableViewModel$ | async"
     [displayedColumns]="columns"
 ></app-table>

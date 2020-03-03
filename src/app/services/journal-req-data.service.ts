@@ -5,6 +5,7 @@ import { Student } from '../common/entities/student';
 import { StudentSubject } from '../common/entities/studentSubject';
 import { students } from '../common/constants/constants-students';
 import { studentSubjects } from '../common/constants/constants-subjects';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,14 @@ export class JournalReqDataService {
     // try get from localStorage
     // return this.http.get<StudentSubject[]>(this.subjectsUrl);
     return of(studentSubjects);
+  }
+
+  public getSubjectById(id: number): Observable<StudentSubject> {
+    return this.getSubjectData()
+      .pipe(
+        map((arr) => {
+          return arr.find(el => el.id === id);
+        })
+      );
   }
 }

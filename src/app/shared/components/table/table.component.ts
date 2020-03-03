@@ -7,7 +7,8 @@ import { Student } from 'src/app/common/entities/student';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
-  @Input() public data: Array<Student> = [];
-  @Input() public displayedColumns: Array<String> = [];
+  // @Input() public data: Student[] = [];
+  @Input() public data: any[] = [];
+  @Input() public displayedColumns: string[] = [];
 
 }

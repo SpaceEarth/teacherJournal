@@ -23,6 +23,7 @@ import { StudentChartComponent } from './components/statistics/chart/student-cha
 import { SubjectChartComponent } from './components/statistics/chart/subject-chart/subject-chart.component';
 import { ItemsListComponent } from './shared/components/items-list/items-list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { SplitCamelCasePipe } from './pipes/camelCase/split-camel-case.pipe';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     StudentChartComponent,
     SubjectChartComponent,
     ItemsListComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SplitCamelCasePipe
   ],
   imports: [
     BrowserModule,
