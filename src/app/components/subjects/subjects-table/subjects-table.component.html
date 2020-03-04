@@ -1,7 +1,20 @@
 <h2 *ngIf="(studentSubject$ | async) as subject">
     {{subject && subject.name}}
 </h2>
-<app-table
-    [data]="subjectTableViewModel$ | async"
-    [displayedColumns]="columns"
-></app-table>
+<table mat-table [dataSource]="subjectTableViewModel$ | async | appTableSort: sortTableName:sortDirection" class="mat-elevation-z8">
+    <ng-container [matColumnDef]="column" *ngFor="let column of columns">
+        <th 
+            mat-header-cell 
+            *matHeaderCellDef
+            (click)="onHeadClick(column)"
+        > {{column | splitCamelCase}} </th>
+        <td 
+            mat-cell 
+            [ngClass]="{averageMark: column === 'averageMark'}" 
+            *matCellDef="let element"
+        > {{element[column]}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row appMarkColor *matRowDef="let row; columns: columns;"></tr>
+</table>

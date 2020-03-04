@@ -10,17 +10,21 @@ export interface SubjectTableViewModel {
   name: string;
   lastName: string;
   averageMark: number | undefined;
-  [key: string]: string | number | undefined;
 }
 
 @Component({
   selector: 'app-subjects-table',
   templateUrl: './subjects-table.component.html',
-  styleUrls: ['./subjects-table.component.scss']
+  styleUrls: [
+    '/src/app/shared/components/table/table.component.scss',
+    './subjects-table.component.scss'
+  ]
 })
 export class SubjectsTableComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   public columns: string[];
+  public sortTableName: string = '';
+  public sortDirection: boolean = true;
   public students$: Observable<Student[]>;
   public studentSubject$: Observable<StudentSubject>;
   public subjectTableViewModel$: Observable<SubjectTableViewModel[]>;
@@ -47,4 +51,11 @@ export class SubjectsTableComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
+  public onHeadClick(sortPropName: string): void {
+    if (this.sortTableName === sortPropName) {
+      this.sortDirection = !this.sortDirection;
+    } else {
+      this.sortTableName = sortPropName;
+    }
+  }
 }

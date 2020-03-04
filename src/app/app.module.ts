@@ -24,6 +24,8 @@ import { SubjectChartComponent } from './components/statistics/chart/subject-cha
 import { ItemsListComponent } from './shared/components/items-list/items-list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SplitCamelCasePipe } from './pipes/camelCase/split-camel-case.pipe';
+import { MarkColorDirective } from './directives/markColor/mark-color.directive';
+import { TableSortPipe } from './pipes/tableSort/table-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { SplitCamelCasePipe } from './pipes/camelCase/split-camel-case.pipe';
     SubjectChartComponent,
     ItemsListComponent,
     NotFoundComponent,
-    SplitCamelCasePipe
+    SplitCamelCasePipe,
+    MarkColorDirective,
+    TableSortPipe
   ],
   imports: [
     BrowserModule,

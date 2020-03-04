@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SubjectTableViewModel } from 'src/app/components/subjects/subjects-table/subjects-table.component';
 import { Student } from 'src/app/common/entities/student';
-import { StudentSubject } from 'src/app/common/entities/studentSubject';
+import { StudentSubject, Journal } from 'src/app/common/entities/studentSubject';
 import { StudentService } from '../student/student.service';
 
 @Injectable({
@@ -16,30 +16,34 @@ export class JournalTableService {
     private studentService: StudentService
   ) {}
 
+  public transformToJournalTableViewModel({ id, name, lastName}: Student, journal: Journal): SubjectTableViewModel {
+    const studentId: number = id;
+    const subjectTableViewModel: SubjectTableViewModel = {
+      name,
+      lastName,
+      averageMark: this.studentService.getAverageMark(journal, studentId)
+    };
+
+    for (let date of Object.keys(journal || [])) {
+      const mark: number | undefined = journal[date][studentId];
+      subjectTableViewModel[date] = mark;
+    }
+
+    return subjectTableViewModel;
+  }
+
   public getSubjectTableViewModel(
       students$: Observable<Student[]>,
       studentSubject$: Observable<StudentSubject>
     ): Observable<SubjectTableViewModel[]> {
 
-    return forkJoin([
+    return combineLatest(
       students$,
       studentSubject$
-    ]).pipe(
-      map(([students, studentSubject]) => {
+    ).pipe(
+      map(([students, { journal }]) => {
         return students.map((student) => {
-          const studentId: number = student.id;
-          const subjectTableViewModel: SubjectTableViewModel = {
-            name: student.name,
-            lastName: student.lastName,
-            averageMark: this.studentService.getAverageMark(studentSubject.journal, studentId)
-          };
-
-          for (let date of Object.keys(studentSubject.journal || [])) {
-            const mark: number | undefined = studentSubject.journal[date][studentId];
-            subjectTableViewModel[date] = mark;
-          }
-
-          return subjectTableViewModel;
+          return this.transformToJournalTableViewModel(student, journal);
         });
       })
     );
