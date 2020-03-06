@@ -14,7 +14,7 @@ export class TableSortPipe implements PipeTransform {
     const path: string[] = sortConfig.sortPath;
     const direction: boolean = sortConfig.direction;
 
-    if (!(value[0])) {
+    if (!value || !(value[0])) {
       return value;
     }
 

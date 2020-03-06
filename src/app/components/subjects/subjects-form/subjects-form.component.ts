@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JournalDataService } from 'src/app/services/journal-data.service';
 
 @Component({
   selector: 'app-subjects-form',
@@ -18,7 +19,8 @@ export class SubjectsFormComponent {
   });
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private journalDataService: JournalDataService
   ) {}
 
   public onSubmit(): void {

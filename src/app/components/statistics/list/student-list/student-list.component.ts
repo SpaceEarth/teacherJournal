@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ItemsList } from 'src/app/common/entities/items-list';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
 import { Observable } from 'rxjs';
-import { JournalReqDataService } from 'src/app/services/journal-req-data.service';
+import { JournalDataService } from 'src/app/services/journal-data.service';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -15,11 +15,11 @@ export class StudentListComponent implements OnInit {
   public instanceLink: string = JournalRoutes.Students;
 
   constructor(
-    private journalReqDataService: JournalReqDataService
+    private journalDataService: JournalDataService
   ) {}
 
   public ngOnInit(): void {
-    this.studentList = this.journalReqDataService
+    this.studentList = this.journalDataService
       .getStudentsData()
       .pipe(
         map(arr => {

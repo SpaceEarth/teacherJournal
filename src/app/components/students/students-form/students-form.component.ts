@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JournalDataService } from 'src/app/services/journal-data.service';
 
 @Component({
   selector: 'app-students-form',
@@ -18,11 +19,12 @@ export class StudentsFormComponent {
   });
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private journalDataService: JournalDataService
   ) {}
 
   public onSubmit(): void {
-    console.log(this.studentForm.value);
+    this.journalDataService.addStudent(this.studentForm.value);
     this.studentForm.reset();
   }
 

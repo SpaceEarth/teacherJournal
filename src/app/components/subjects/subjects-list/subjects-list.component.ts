@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentSubject } from 'src/app/common/entities/studentSubject';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
-import { JournalReqDataService } from 'src/app/services/journal-req-data.service';
+import { JournalDataService } from 'src/app/services/journal-data.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,11 +16,11 @@ export class SubjectsListComponent implements OnInit {
   };
 
   constructor(
-    private journalReqDataService: JournalReqDataService,
+    private journalDataService: JournalDataService,
   ) {}
 
   public ngOnInit(): void {
-    this.studentSubjects = this.journalReqDataService.getSubjectData();
+    this.studentSubjects = this.journalDataService.getSubjectData();
   }
 
   public getSubjectRouterLink(id: number): string | any[] {

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Student } from 'src/app/common/entities/student';
 import { ActivatedRoute } from '@angular/router';
 import { StudentSubject } from 'src/app/common/entities/studentSubject';
-import { JournalReqDataService } from 'src/app/services/journal-req-data.service';
+import { JournalDataService } from 'src/app/services/journal-data.service';
 import { Observable, Subscription } from 'rxjs';
 import { JournalTableService } from 'src/app/services/journalTable/journal-table.service';
 
@@ -33,7 +33,7 @@ export interface ISortConfig {
 export class SubjectsTableComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   public dates: string[];
-  public subj: {[key: string]: string} = SubjFields;
+  public subj: typeof SubjFields = SubjFields;
   public columns: string[] = [SubjFields.name, SubjFields.lastName, SubjFields.averageMark];
   public sortConfig: ISortConfig = {sortPath: [], direction: true};
   public students$: Observable<Student[]>;
@@ -42,14 +42,14 @@ export class SubjectsTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private journalReqDataService: JournalReqDataService,
+    private journalDataService: JournalDataService,
     private journalTableService: JournalTableService
   ) {}
 
   public ngOnInit(): void {
     const id: number = +this.route.snapshot.paramMap.get('id');
-    this.studentSubject$ = this.journalReqDataService.getSubjectById(id);
-    this.students$ = this.journalReqDataService.getStudentsData();
+    this.studentSubject$ = this.journalDataService.getSubjectById(id);
+    this.students$ = this.journalDataService.getStudentsData();
     this.subjectTableViewModel$ = this.journalTableService.getSubjectTableViewModel(this.students$, this.studentSubject$);
     this.subscriptions.push(
       this.subjectTableViewModel$.subscribe((data) => {
