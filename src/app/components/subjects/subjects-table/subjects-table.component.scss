@@ -1,3 +1,5 @@
+@import 'src/app/styles/global/variables.scss';
+
 h2 {
     color: white;
     font-size: 2rem;
@@ -5,6 +7,25 @@ h2 {
     margin-left: 55px;
 }
 
-th:hover {
-    cursor: pointer;
+mat-table {
+    width: 620px;
+    margin: 40px auto 0 auto;
+    background-color: $APPLICATION_TABLE_BACKGROUND_COLOR;
+    
+    mat-header-cell {
+        background-color: $APPLICATION_TABLE_HEADER_BACKGROUND_COLOR;
+    }
+    
+    mat-header-cell:hover {
+        cursor: pointer;
+    }
+
+    mat-header-cell, mat-cell {
+        color: white;
+        border: 2px solid white;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 1.25rem;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 }

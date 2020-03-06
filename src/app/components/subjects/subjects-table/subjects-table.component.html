@@ -1,20 +1,24 @@
 <h2 *ngIf="(studentSubject$ | async) as subject">
     {{subject && subject.name}}
 </h2>
-<table mat-table [dataSource]="subjectTableViewModel$ | async | appTableSort: sortTableName:sortDirection" class="mat-elevation-z8">
-    <ng-container [matColumnDef]="column" *ngFor="let column of columns">
-        <th 
-            mat-header-cell 
-            *matHeaderCellDef
-            (click)="onHeadClick(column)"
-        > {{column | splitCamelCase}} </th>
-        <td 
-            mat-cell 
-            [ngClass]="{averageMark: column === 'averageMark'}" 
-            *matCellDef="let element"
-        > {{element[column]}} </td>
-    </ng-container>
+<mat-table [dataSource]="subjectTableViewModel$ | async | appTableSort: sortConfig">
+  <ng-container [matColumnDef]="subj.name">
+    <mat-header-cell (click)="onHeadClick([subj.name])" *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+  </ng-container>
+  <ng-container [matColumnDef]="subj.lastName">
+    <mat-header-cell (click)="onHeadClick([subj.lastName])" *matHeaderCellDef> Last Name </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.lastName}} </mat-cell>
+  </ng-container>
+  <ng-container [matColumnDef]="subj.averageMark">
+    <mat-header-cell (click)="onHeadClick([subj.averageMark])" *matHeaderCellDef> Average Mark </mat-header-cell>
+    <mat-cell *matCellDef="let row" [appMarkColor]="row.averageMark"> {{row.averageMark}} </mat-cell>
+  </ng-container>
+  <ng-container [matColumnDef]="date" *ngFor="let date of dates">
+    <mat-header-cell (click)="onHeadClick([subj.datesWithMarks, date])" *matHeaderCellDef> {{date}} </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.datesWithMarks[date]}} </mat-cell>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row appMarkColor *matRowDef="let row; columns: columns;"></tr>
-</table>
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+</mat-table>

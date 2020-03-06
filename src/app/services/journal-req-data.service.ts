@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Student } from '../common/entities/student';
 import { StudentSubject } from '../common/entities/studentSubject';
 import { students } from '../common/constants/constants-students';
 import { studentSubjects } from '../common/constants/constants-subjects';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,14 @@ export class JournalReqDataService {
   public getSubjectData(): Observable<StudentSubject[]> {
     // try get from localStorage
     // return this.http.get<StudentSubject[]>(this.subjectsUrl);
+
+    // const subject: Subject<any[]> = new Subject<any[]>();
+    // of(students).subscribe(subject);
+    // return subject;
+    // if (!this.data$) {
+    //   this.data$ = of(studentSubjects).pipe(shareReplay());
+    // }
+    // return this.data$;
     return of(studentSubjects);
   }
 

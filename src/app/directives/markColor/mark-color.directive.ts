@@ -1,24 +1,34 @@
-import { Directive, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, Renderer2, AfterViewInit, Input, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appMarkColor]'
 })
-export class MarkColorDirective implements AfterViewInit {
+export class MarkColorDirective {
+  @Input('appMarkColor')
+  public number: number | null;
 
   constructor(
     private el: ElementRef,
     private renderer: Renderer2
   ) {}
 
-  public ngAfterViewInit(): void {
-    const markEl: HTMLElement = this.el.nativeElement.querySelector('.averageMark');
-    const averageMark: number = parseFloat(markEl.innerText);
+  @HostListener('mouseenter')
+  public onMouseEneter(): void {
+    if (typeof this.number !== 'number') {
+      return;
+    }
+    const averageMark: number = this.number;
 
     if (averageMark < 5) {
-      this.renderer.setStyle(this.el.nativeElement, 'background-color', '#004080');
+      this.renderer.setStyle(this.el.nativeElement.parentElement, 'background-color', '#004080');
     } else if (averageMark >= 5) {
-      this.renderer.setStyle(this.el.nativeElement, 'background-color', '#334d00');
+      this.renderer.setStyle(this.el.nativeElement.parentElement, 'background-color', '#334d00');
     }
+  }
+
+  @HostListener('mouseleave')
+  public onMouseLeave(): void {
+    this.renderer.removeStyle(this.el.nativeElement.parentElement, 'background-color');
   }
 
 }
