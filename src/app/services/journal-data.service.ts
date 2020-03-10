@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Student } from '../common/entities/student';
 import { StudentSubject } from '../common/entities/studentSubject';
-import { map, share } from 'rxjs/operators';
+import { map, share, concatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +22,12 @@ export class JournalDataService {
     return this.http.post<Student>(this.studentsUrl, student);
   }
 
-  public deleteStudentById(id: number): Observable<Student> {
+  public deleteStudentById(id: number): Observable<Student[]> {
     const url: string = `${this.studentsUrl}/${id}`;
-    return this.http.delete<Student>(url);
+
+    return this.http.delete<Student>(url).pipe(
+      concatMap(() => this.getStudentsData())
+    );
   }
 
   public getStudentsData(): Observable<Student[]> {

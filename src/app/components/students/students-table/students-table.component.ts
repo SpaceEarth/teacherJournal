@@ -9,12 +9,8 @@ import { JournalDataService } from 'src/app/services/journal-data.service';
   templateUrl: './students-table.component.html',
   styleUrls: ['./students-table.component.scss']
 })
-export class StudentsTableComponent implements OnInit, OnDestroy {
-  public students: Student[] = [];
+export class StudentsTableComponent implements OnInit {
   public students$: Observable<Student[]>;
-  public studentsSub: Subscription;
-  public deleteStudentByIdSub: Subscription;
-  public columns: string[] = [];
   public routerLinkConfig: { [key: string]: string | any[] } = {
     addNewUser: [`/${JournalRoutes.Students}`, JournalRoutes.Form],
   };
@@ -25,30 +21,21 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.students$ = this.journalDataService.getStudentsData();
-    this.studentsSub = this.students$
-      .subscribe(data => {
-        this.students = data;
-        this.columns = Object.keys(data[0]);
-      });
   }
 
-  public ngOnDestroy(): void {
-    this.studentsSub.unsubscribe();
-    if (this.deleteStudentByIdSub) {
-      this.deleteStudentByIdSub.unsubscribe();
-    }
+  public getColumns(students: Student[]): string[] {
+    students = students || [];
+
+    return Object.keys(students[0] || {});
   }
 
   public onClickDeleteUser(student: Student): void {
     const submit: boolean = confirm(`Delete ${student.name} ${student.lastName}?`);
-    const studentId: number = student.id;
 
-    if (submit) {
-      this.deleteStudentByIdSub = this.journalDataService
-        .deleteStudentById(studentId)
-        .subscribe(() => {
-          this.students = this.students.filter(stud => stud.id !== studentId);
-        });
+    if (!submit) {
+      return;
     }
+
+    this.students$ = this.journalDataService.deleteStudentById(student.id);
   }
 }

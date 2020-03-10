@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './root/app.component';
@@ -25,6 +25,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SplitCamelCasePipe } from './pipes/camelCase/split-camel-case.pipe';
 import { MarkColorDirective } from './directives/markColor/mark-color.directive';
 import { TableSortPipe } from './pipes/tableSort/table-sort.pipe';
+import { AuthInterceptor } from './interceptors/auth.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,13 @@ import { TableSortPipe } from './pipes/tableSort/table-sort.pipe';
     HttpClientModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
