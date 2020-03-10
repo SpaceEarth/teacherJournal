@@ -1,7 +1,32 @@
-<app-table
-    [data]="students"
-    [displayedColumns]="columns"
-></app-table>
+<mat-table [dataSource]="students$ | async">
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell 
+            (click)="onClickDeleteUser(row)" 
+            *matCellDef="let row"
+            class="id-cell"
+        > {{row.id}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.lastName}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.address}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns"></mat-row>
+  </mat-table>
 <div class="button-wrapper" [routerLink]="routerLinkConfig.addNewUser">
     <app-button
         [title]="'add new user'"

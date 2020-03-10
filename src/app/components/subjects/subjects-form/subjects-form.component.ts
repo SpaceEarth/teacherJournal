@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JournalDataService } from 'src/app/services/journal-data.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { JournalRoutes } from 'src/app/common/enums/router.enum';
 
 @Component({
   selector: 'app-subjects-form',
@@ -10,7 +13,8 @@ import { JournalDataService } from 'src/app/services/journal-data.service';
     './subjects-form.component.scss'
   ]
 })
-export class SubjectsFormComponent {
+export class SubjectsFormComponent implements OnDestroy {
+  public journalDataAddSubjectSub: Subscription;
   public subjectForm: FormGroup = this.fb.group({
     'name': ['', Validators.required],
     'teacher': ['', Validators.required],
@@ -20,12 +24,21 @@ export class SubjectsFormComponent {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private journalDataService: JournalDataService
   ) {}
 
+  // take(1);
   public onSubmit(): void {
-    console.log(this.subjectForm.value);
-    this.subjectForm.reset();
+    this.journalDataAddSubjectSub = this.journalDataService.addSubject({...this.subjectForm.value, journal: {}}).subscribe(data => {
+      this.router.navigate([`/${JournalRoutes.Subjects}`, JournalRoutes.List]);
+    });
+  }
+
+  public ngOnDestroy(): void {
+    if (this.journalDataAddSubjectSub) {
+      this.journalDataAddSubjectSub.unsubscribe();
+    }
   }
 
 }

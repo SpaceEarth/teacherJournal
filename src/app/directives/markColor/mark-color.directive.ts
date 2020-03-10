@@ -20,15 +20,15 @@ export class MarkColorDirective {
     const averageMark: number = this.number;
 
     if (averageMark < 5) {
-      this.renderer.setStyle(this.el.nativeElement.parentElement, 'background-color', '#004080');
+      this.renderer.setStyle(this.el.nativeElement, 'background-color', '#004080');
     } else if (averageMark >= 5) {
-      this.renderer.setStyle(this.el.nativeElement.parentElement, 'background-color', '#334d00');
+      this.renderer.setStyle(this.el.nativeElement, 'background-color', '#334d00');
     }
   }
 
   @HostListener('mouseleave')
   public onMouseLeave(): void {
-    this.renderer.removeStyle(this.el.nativeElement.parentElement, 'background-color');
+    this.renderer.removeStyle(this.el.nativeElement, 'background-color');
   }
 
 }

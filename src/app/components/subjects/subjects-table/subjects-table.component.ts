@@ -32,7 +32,9 @@ export interface ISortConfig {
 })
 export class SubjectsTableComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+  public id: number;
   public dates: string[];
+  public subjectData: StudentSubject;
   public subj: typeof SubjFields = SubjFields;
   public columns: string[] = [SubjFields.name, SubjFields.lastName, SubjFields.averageMark];
   public sortConfig: ISortConfig = {sortPath: [], direction: true};
@@ -47,8 +49,14 @@ export class SubjectsTableComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    const id: number = +this.route.snapshot.paramMap.get('id');
-    this.studentSubject$ = this.journalDataService.getSubjectById(id);
+    this.id = +this.route.snapshot.paramMap.get('id');
+    this.studentSubject$ = this.journalDataService.getSubjectById(this.id);
+    this.subscriptions.push(
+      this.studentSubject$
+        .subscribe(subjectData => {
+          this.subjectData = subjectData;
+      })
+    );
     this.students$ = this.journalDataService.getStudentsData();
     this.subjectTableViewModel$ = this.journalTableService.getSubjectTableViewModel(this.students$, this.studentSubject$);
     this.subscriptions.push(
@@ -67,6 +75,14 @@ export class SubjectsTableComponent implements OnInit, OnDestroy {
 
   public avrgMarkField(field: string): boolean {
     return field === 'averageMark';
+  }
+
+  public onAddDate(): void {
+    const date: string = prompt('Enter new date', '31/01');
+    // this.subjectTableViewModel$
+    if (date) {
+      this.journalDataService.addSubjectDate(this.id, this.subjectData, date).subscribe();
+    }
   }
 
   public onHeadClick(sortPath: string[]): void {

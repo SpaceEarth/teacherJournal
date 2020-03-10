@@ -18,8 +18,13 @@ export class JournalDataService {
     private http: HttpClient
   ) { }
 
-  public addStudent(student: Student): void {
-    this.http.post<Student>(this.studentsUrl, student).subscribe();
+  public addStudent(student: Student): Observable<Student> {
+    return this.http.post<Student>(this.studentsUrl, student);
+  }
+
+  public deleteStudentById(id: number): Observable<Student> {
+    const url: string = `${this.studentsUrl}/${id}`;
+    return this.http.delete<Student>(url);
   }
 
   public getStudentsData(): Observable<Student[]> {
@@ -33,6 +38,19 @@ export class JournalDataService {
         );
     }
     return this.studentData$;
+  }
+
+  public addSubject(subject: StudentSubject): Observable<StudentSubject> {
+    return this.http.post<StudentSubject>(this.subjectsUrl, subject);
+  }
+
+  public addSubjectDate(id: number, subjectData: StudentSubject, date: string): Observable<Object> {
+    const url: string = `${this.subjectsUrl}/${id}`;
+    const data: StudentSubject = {...subjectData};
+
+    data.journal[date] = {};
+
+    return this.http.put(url, data);
   }
 
   public getSubjectData(): Observable<StudentSubject[]> {

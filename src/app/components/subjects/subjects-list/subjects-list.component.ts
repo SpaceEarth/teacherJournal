@@ -26,4 +26,9 @@ export class SubjectsListComponent implements OnInit {
   public getSubjectRouterLink(id: number): string | any[] {
     return [`/${JournalRoutes.Subjects}`, JournalRoutes.Table, id];
   }
+
+  public onDeleteSubject(e: Event, id: number): void {
+    e.stopPropagation();
+    console.log(id);
+  }
 }

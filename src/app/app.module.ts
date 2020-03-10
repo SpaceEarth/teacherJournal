@@ -10,7 +10,6 @@ import { PanelComponent } from './components/panel/panel.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ExportComponent } from './components/export/export.component';
 import { ButtonComponent } from './shared/components/button/button.component';
-import { TableComponent } from './shared/components/table/table.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SubjectsListComponent } from './components/subjects/subjects-list/subjects-list.component';
 import { SubjectsFormComponent } from './components/subjects/subjects-form/subjects-form.component';
@@ -34,7 +33,6 @@ import { TableSortPipe } from './pipes/tableSort/table-sort.pipe';
     StatisticsComponent,
     ExportComponent,
     ButtonComponent,
-    TableComponent,
     SubjectsListComponent,
     SubjectsFormComponent,
     StudentsTableComponent,
