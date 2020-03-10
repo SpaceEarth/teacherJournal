@@ -48,6 +48,9 @@ export class JournalDataService {
     const url: string = `${this.subjectsUrl}/${id}`;
     const data: StudentSubject = {...subjectData};
 
+    if (!data.journal) {
+      data.journal = {};
+    }
     data.journal[date] = {};
 
     return this.http.put(url, data);
@@ -64,6 +67,12 @@ export class JournalDataService {
         );
     }
     return this.studentSubjectData$;
+  }
+
+  public deleteSubjectById(id: number): Observable<StudentSubject> {
+    const url: string = `${this.subjectsUrl}/${id}`;
+
+    return this.http.delete<StudentSubject>(url);
   }
 
   public getSubjectById(id: number): Observable<StudentSubject> {

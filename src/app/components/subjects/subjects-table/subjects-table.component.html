@@ -1,13 +1,11 @@
-<h2 *ngIf="(studentSubject$ | async) as subject">
-    {{subject && subject.name}}
+<h2 *ngIf="subjectData">
+    {{subjectData && subjectData.name}}
 </h2>
-
-
 <div>
   <div class="new-date-button-wrapper">
     <div class="add-new-date" (click)="onAddDate()"></div>
   </div>
-  <mat-table [dataSource]="subjectTableViewModel$ | async | appTableSort: sortConfig">
+  <mat-table [dataSource]="subjectTableViewModel | appTableSort: sortConfig">
     <ng-container [matColumnDef]="subj.name">
       <mat-header-cell (click)="onHeadClick([subj.name])" *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>

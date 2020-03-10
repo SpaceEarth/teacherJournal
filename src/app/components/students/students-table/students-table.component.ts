@@ -3,7 +3,6 @@ import { Student } from 'src/app/common/entities/student';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
 import { Observable, Subscription } from 'rxjs';
 import { JournalDataService } from 'src/app/services/journal-data.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-students-table',
@@ -11,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./students-table.component.scss']
 })
 export class StudentsTableComponent implements OnInit, OnDestroy {
+  public students: Student[] = [];
   public students$: Observable<Student[]>;
   public studentsSub: Subscription;
   public deleteStudentByIdSub: Subscription;
@@ -23,21 +23,13 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
     private journalDataService: JournalDataService
   ) { }
 
-  public loadStudentsData(): void {
+  public ngOnInit(): void {
     this.students$ = this.journalDataService.getStudentsData();
     this.studentsSub = this.students$
       .subscribe(data => {
+        this.students = data;
         this.columns = Object.keys(data[0]);
       });
-  }
-
-  public clearStudentsData(): void {
-    this.students$ = undefined;
-    this.studentsSub.unsubscribe();
-  }
-
-  public ngOnInit(): void {
-    this.loadStudentsData();
   }
 
   public ngOnDestroy(): void {
@@ -49,14 +41,14 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
 
   public onClickDeleteUser(student: Student): void {
     const submit: boolean = confirm(`Delete ${student.name} ${student.lastName}?`);
+    const studentId: number = student.id;
+
     if (submit) {
-      this.clearStudentsData();
       this.deleteStudentByIdSub = this.journalDataService
-        .deleteStudentById(student.id)
+        .deleteStudentById(studentId)
         .subscribe(() => {
-          this.loadStudentsData();
+          this.students = this.students.filter(stud => stud.id !== studentId);
         });
     }
   }
-
 }
