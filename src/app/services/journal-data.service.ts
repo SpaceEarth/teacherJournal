@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Student } from '../common/entities/student';
 import { StudentSubject } from '../common/entities/studentSubject';
 import { map, share, concatMap } from 'rxjs/operators';
+import { students } from '../common/constants/constants-students';
+
+// class StoreStudents {
+//   private students: BehaviorSubject<Student[]> = new BehaviorSubject<Student[]>([]);
+
+//     public getStudent(): Observable {
+//       return this.students.asObservable();
+//     }
+// }
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +24,8 @@ export class JournalDataService {
   public studentSubjectData$: Observable<StudentSubject[]>;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    // private storeStudents: StoreStudents
   ) { }
 
   public addStudent(student: Student): Observable<Student> {
@@ -33,6 +43,13 @@ export class JournalDataService {
   public getStudentsData(): Observable<Student[]> {
     // try get from localStorage
 
+    // this.http.get<Student[]>(this.studentsUrl).subscribe(data => {
+    //   this.storeStudents.students.next(data);
+    // });
+    // this.storeStudents.students.subscribe(data => {
+    //   this.student = data;
+    // })
+
     if (!this.studentData$) {
       this.studentData$ = this.http
         .get<Student[]>(this.studentsUrl)
@@ -49,7 +66,7 @@ export class JournalDataService {
 
   public addSubjectDate(id: number, subjectData: StudentSubject, date: string): Observable<Object> {
     const url: string = `${this.subjectsUrl}/${id}`;
-    const data: StudentSubject = {...subjectData};
+    const data: StudentSubject = { ...subjectData };
 
     if (!data.journal) {
       data.journal = {};

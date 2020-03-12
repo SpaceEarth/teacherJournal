@@ -1,3 +1,7 @@
+<div class="search-block">
+    <input #searchBar type="text">
+</div>
+<!-- <ng-container *ngIf="storeStudents.getstudents() | async as students"></ng-container> -->
 <ng-container *ngIf="students$ | async as students">
     <mat-table [dataSource]="students">
         <ng-container matColumnDef="id">
@@ -21,8 +25,8 @@
             <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="getColumns(students)"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: getColumns(students)"></mat-row>
+        <mat-header-row *matHeaderRowDef="columns$ | async"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columns$ | async"></mat-row>
     </mat-table>
     <div class="button-wrapper" [routerLink]="routerLinkConfig.addNewUser">
         <app-button [title]="'add new user'"></app-button>

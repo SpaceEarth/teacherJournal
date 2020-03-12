@@ -1,15 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Student } from 'src/app/common/entities/student';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, fromEvent } from 'rxjs';
 import { JournalDataService } from 'src/app/services/journal-data.service';
+import { pluck, debounceTime, distinctUntilChanged, switchMap, map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-students-table',
   templateUrl: './students-table.component.html',
   styleUrls: ['./students-table.component.scss']
 })
-export class StudentsTableComponent implements OnInit {
+export class StudentsTableComponent implements AfterViewInit {
+  @ViewChild('searchBar')
+  private input: ElementRef;
+  public columns$: Observable<string[]>;
   public students$: Observable<Student[]>;
   public routerLinkConfig: { [key: string]: string | any[] } = {
     addNewUser: [`/${JournalRoutes.Students}`, JournalRoutes.Form],
@@ -20,13 +24,31 @@ export class StudentsTableComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.students$ = this.journalDataService.getStudentsData();
+    this.columns$ = this.journalDataService.getStudentsData().pipe(
+      map((value) => {
+        value = value || [];
+        return Object.keys(value[0] || {});
+      })
+    );
   }
 
-  public getColumns(students: Student[]): string[] {
-    students = students || [];
-
-    return Object.keys(students[0] || {});
+  public ngAfterViewInit(): void {
+    this.students$ = fromEvent(this.input.nativeElement, 'input')
+      .pipe(
+        pluck('target', 'value'),
+        startWith(''),
+        debounceTime(100),
+        distinctUntilChanged(),
+        switchMap((searchKey) => this.journalDataService.getStudentsData()
+          .pipe(
+            map(
+              data => data.filter(
+                student => student.lastName.toLowerCase().startsWith((<string>searchKey).toLowerCase())
+              )
+            )
+          )
+        )
+      );
   }
 
   public onClickDeleteUser(student: Student): void {

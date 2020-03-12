@@ -1,5 +1,17 @@
 @import 'src/app/styles/global/variables.scss';
 
+.search-block {
+    display: flex;
+    justify-content: center;
+
+    input {
+        margin-top: 20px;
+        min-width: 150px;
+        width: 15vw;
+        border-radius: 5px;
+    }
+}
+
 mat-table {
     width: 620px;
     margin: 40px auto 0 auto;
