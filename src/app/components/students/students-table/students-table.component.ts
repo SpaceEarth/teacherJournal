@@ -1,54 +1,60 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Student } from 'src/app/common/entities/student';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
-import { Observable, fromEvent } from 'rxjs';
+import { Observable, fromEvent, Subscription } from 'rxjs';
 import { JournalDataService } from 'src/app/services/journal-data.service';
-import { pluck, debounceTime, distinctUntilChanged, switchMap, map, startWith } from 'rxjs/operators';
+import { pluck, debounceTime, distinctUntilChanged, switchMap, map, startWith, tap } from 'rxjs/operators';
+import { LoadStudents } from '../students.actions';
+import { Store } from '@ngrx/store';
 
+export interface AppState {
+  students: Student[];
+}
 @Component({
   selector: 'app-students-table',
   templateUrl: './students-table.component.html',
   styleUrls: ['./students-table.component.scss']
 })
-export class StudentsTableComponent implements AfterViewInit {
+export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchBar')
   private input: ElementRef;
   public columns$: Observable<string[]>;
   public students$: Observable<Student[]>;
+  public serachBarInput$: Subscription;
   public routerLinkConfig: { [key: string]: string | any[] } = {
     addNewUser: [`/${JournalRoutes.Students}`, JournalRoutes.Form],
   };
 
   constructor(
+    private store$: Store<AppState>,
     private journalDataService: JournalDataService
   ) { }
 
   public ngOnInit(): void {
-    this.columns$ = this.journalDataService.getStudentsData().pipe(
-      map((value) => {
-        value = value || [];
-        return Object.keys(value[0] || {});
-      })
-    );
+    this.students$ = this.store$.select('students');
+    this.columns$ = this.store$.select('students')
+      .pipe(
+        map(
+          (value = []) => Object.keys(value[0] || {})
+        )
+      );
   }
 
   public ngAfterViewInit(): void {
-    this.students$ = fromEvent(this.input.nativeElement, 'input')
+    this.serachBarInput$ = fromEvent(this.input.nativeElement, 'input')
       .pipe(
         pluck('target', 'value'),
         startWith(''),
         debounceTime(100),
-        distinctUntilChanged(),
-        switchMap((searchKey) => this.journalDataService.getStudentsData()
-          .pipe(
-            map(
-              data => data.filter(
-                student => student.lastName.toLowerCase().startsWith((<string>searchKey).toLowerCase())
-              )
-            )
-          )
-        )
-      );
+        distinctUntilChanged()
+      )
+      .subscribe((searchKey: string) => {
+        this.store$.dispatch(new LoadStudents(searchKey));
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this.serachBarInput$.unsubscribe();
   }
 
   public onClickDeleteUser(student: Student): void {

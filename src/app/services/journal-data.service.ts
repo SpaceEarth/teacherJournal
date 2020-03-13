@@ -4,7 +4,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Student } from '../common/entities/student';
 import { StudentSubject } from '../common/entities/studentSubject';
 import { map, share, concatMap } from 'rxjs/operators';
-import { students } from '../common/constants/constants-students';
 
 // class StoreStudents {
 //   private students: BehaviorSubject<Student[]> = new BehaviorSubject<Student[]>([]);
@@ -20,7 +19,7 @@ import { students } from '../common/constants/constants-students';
 export class JournalDataService {
   public studentsUrl: string = 'http://localhost:3004/students';
   public subjectsUrl: string = 'http://localhost:3004/subjects';
-  public studentData$: Observable<Student[]>;
+  // public studentData$: Observable<Student[]>;
   public studentSubjectData$: Observable<StudentSubject[]>;
 
   constructor(
@@ -40,7 +39,7 @@ export class JournalDataService {
     );
   }
 
-  public getStudentsData(): Observable<Student[]> {
+  public getStudentsData(searchKey?: string): Observable<Student[]> {
     // try get from localStorage
 
     // this.http.get<Student[]>(this.studentsUrl).subscribe(data => {
@@ -50,14 +49,15 @@ export class JournalDataService {
     //   this.student = data;
     // })
 
-    if (!this.studentData$) {
-      this.studentData$ = this.http
-        .get<Student[]>(this.studentsUrl)
-        .pipe(
-          share()
-        );
-    }
-    return this.studentData$;
+    return this.http.get<Student[]>(this.studentsUrl)
+      .pipe(
+        map(
+          students => students.filter(
+            student => student.lastName.toLowerCase().startsWith((<string>searchKey || '').toLowerCase())
+          )
+        ),
+        share()
+      );
   }
 
   public addSubject(subject: StudentSubject): Observable<StudentSubject> {

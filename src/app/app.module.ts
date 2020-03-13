@@ -4,6 +4,9 @@ import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './root/app.component';
 import { PanelComponent } from './components/panel/panel.component';
@@ -26,6 +29,10 @@ import { SplitCamelCasePipe } from './pipes/camelCase/split-camel-case.pipe';
 import { MarkColorDirective } from './directives/markColor/mark-color.directive';
 import { TableSortPipe } from './pipes/tableSort/table-sort.pipe';
 import { AuthInterceptor } from './interceptors/auth.service';
+
+import { studentReducer } from './components/students/students.reducer';
+import { StudentEffects } from './components/students/students.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -52,6 +59,12 @@ import { AuthInterceptor } from './interceptors/auth.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    StoreModule.forRoot({ students: studentReducer }),
+    EffectsModule.forRoot([StudentEffects]),
+    // EffectsModule.forFeature(),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+    }),
     MatTableModule,
     ReactiveFormsModule,
     HttpClientModule,
