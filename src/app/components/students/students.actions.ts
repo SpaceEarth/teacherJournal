@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Student } from 'src/app/common/entities/student';
 
 export enum StudentsActionTypes {
@@ -10,46 +10,32 @@ export enum StudentsActionTypes {
     StudentDeletingFiled = '[Students] Students Deleting Failed',
 }
 
-export class LoadStudents implements Action {
-    public readonly type: StudentsActionTypes = StudentsActionTypes.LoadStudents;
+export const loadStudents = createAction(
+    StudentsActionTypes.LoadStudents,
+    props<{ searchKey: string }>()
+);
 
-    constructor(public searchKey: string) {}
-}
+export const studentsLoadingSuccess = createAction(
+    StudentsActionTypes.StudentsLoadingSuccess,
+    props<{ students: Student[] }>()
+);
 
-export class StudentsLoadingSuccess implements Action {
-    public readonly type: StudentsActionTypes = StudentsActionTypes.StudentsLoadingSuccess;
+export const studentsLoadingFailed = createAction(
+    StudentsActionTypes.StudentsLoadingFailed,
+    props<{ error: any }>()
+);
 
-    constructor(public students: Student[]) {}
-}
+export const deleteStudent = createAction(
+    StudentsActionTypes.DeleteStudent,
+    props<{ id: number }>()
+);
 
-export class StudentsLoadingFailed implements Action {
-    public readonly type: StudentsActionTypes = StudentsActionTypes.StudentsLoadingFailed;
+export const studentDeletingSuccess = createAction(
+    StudentsActionTypes.StudentDeletingSuccess,
+    props<{ students: Student[] }>()
+);
 
-    constructor(public error: any) {}
-}
-
-export class DeleteStudent implements Action {
-    public readonly type: StudentsActionTypes = StudentsActionTypes.DeleteStudent;
-
-    constructor(public id: number) {}
-}
-
-export class StudentDeletingSuccess implements Action {
-    public readonly type: StudentsActionTypes = StudentsActionTypes.StudentDeletingSuccess;
-
-    constructor(public students: Student[]) {}
-}
-
-export class StudentDeletingFiled implements Action {
-    public readonly type: StudentsActionTypes = StudentsActionTypes.StudentDeletingFiled;
-
-    constructor(public error: any) {}
-}
-
-export type StudentsActions =
-    | LoadStudents
-    | StudentsLoadingSuccess
-    | StudentsLoadingFailed
-    | DeleteStudent
-    | StudentDeletingSuccess
-    | StudentDeletingFiled;
+export const studentDeletingFiled = createAction(
+    StudentsActionTypes.StudentDeletingFiled,
+    props<{ error: any }>()
+);

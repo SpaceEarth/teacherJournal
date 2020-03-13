@@ -1,15 +1,21 @@
-import { StudentsActionTypes, StudentsActions, StudentsLoadingSuccess, StudentDeletingSuccess } from './students.actions';
+import { studentsLoadingSuccess, studentDeletingSuccess } from './students.actions';
 import { Student } from 'src/app/common/entities/student';
+import { on, createReducer, ActionReducer, Action } from '@ngrx/store';
 
 const initialState: Student[] = [];
 
-export function studentReducer(state: Student[] = initialState, action: StudentsActions): Student[] {
-    switch (action.type) {
-        case StudentsActionTypes.StudentsLoadingSuccess:
-            return [...(<StudentsLoadingSuccess>action).students];
-        case StudentsActionTypes.StudentDeletingSuccess:
-            return [...(<StudentDeletingSuccess>action).students];
-        default:
-            return state;
-    }
+const _studentReducer: ActionReducer<Student[], Action> = createReducer(
+  initialState,
+  on(studentsLoadingSuccess, (state, action) => [...(action).students]),
+  on(studentDeletingSuccess, (state, action) => {
+    const ids: number[] = action.students.map(student => student.id);
+
+    return state.filter((student: Student) => {
+      return ids.includes(student.id);
+    });
+  })
+);
+
+export function studentReducer(state: Student[], action: Action): Student[] {
+  return _studentReducer(state, action);
 }

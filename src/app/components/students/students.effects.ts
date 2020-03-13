@@ -6,12 +6,12 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 
 import {
   StudentsActionTypes,
-  LoadStudents,
-  StudentsLoadingSuccess,
-  StudentsLoadingFailed,
-  DeleteStudent,
-  StudentDeletingSuccess,
-  StudentDeletingFiled
+  loadStudents,
+  studentsLoadingSuccess,
+  studentsLoadingFailed,
+  deleteStudent,
+  studentDeletingSuccess,
+  studentDeletingFiled
 } from './students.actions';
 import { JournalDataService } from 'src/app/services/journal-data.service';
 
@@ -20,28 +20,28 @@ export class StudentEffects {
 
   @Effect()
   public loadStudents$:
-    Observable<StudentsLoadingSuccess | StudentsLoadingFailed> = this.action$
+    Observable<any> = this.action$
       .pipe(
         ofType(StudentsActionTypes.LoadStudents),
-        switchMap((action: LoadStudents) => {
+        switchMap((action: any) => {
           return this.journalDataService.getStudentsData(<string>action.searchKey)
             .pipe(
-              map(students => new StudentsLoadingSuccess(students)),
-              catchError(error => of(new StudentsLoadingFailed(error)))
+              map(students => studentsLoadingSuccess({ students })),
+              catchError(error => of(studentsLoadingFailed({ error })))
             );
         })
       );
 
   @Effect()
   public deleteStudent$:
-    Observable<StudentDeletingSuccess | StudentDeletingFiled> = this.action$
+    Observable<any> = this.action$
       .pipe(
         ofType(StudentsActionTypes.DeleteStudent),
-        switchMap((action: DeleteStudent) => {
+        switchMap((action: any) => {
           return this.journalDataService.deleteStudentById(action.id)
             .pipe(
-              map(students => new StudentDeletingSuccess(students)),
-              catchError(error => of(new StudentDeletingFiled(error)))
+              map(students => studentDeletingSuccess({ students })),
+              catchError(error => of(studentDeletingFiled({ error })))
             );
         })
       );

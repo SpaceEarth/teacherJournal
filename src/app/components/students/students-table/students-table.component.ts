@@ -3,7 +3,7 @@ import { Student } from 'src/app/common/entities/student';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
 import { Observable, fromEvent, Subscription } from 'rxjs';
 import { pluck, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import { LoadStudents, DeleteStudent } from '../students.actions';
+import { deleteStudent, loadStudents } from '../students.actions';
 import { Store } from '@ngrx/store';
 import { AppStore } from 'src/app/common/entities/appStore';
 
@@ -49,7 +49,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
         distinctUntilChanged()
       )
       .subscribe((searchKey: string) => {
-        this.store$.dispatch(new LoadStudents(searchKey));
+        this.store$.dispatch(loadStudents({ searchKey }));
       });
   }
 
@@ -64,6 +64,6 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
       return;
     }
 
-    this.store$.dispatch(new DeleteStudent(student.id));
+    this.store$.dispatch(deleteStudent({ id: student.id }));
   }
 }
