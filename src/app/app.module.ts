@@ -33,6 +33,7 @@ import { AuthInterceptor } from './interceptors/auth.service';
 import { studentReducer } from './components/students/students.reducer';
 import { StudentEffects } from './components/students/students.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { AppStore } from './common/entities/appStore';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ students: studentReducer }),
+    StoreModule.forRoot({ [AppStore.Students]: studentReducer }),
     EffectsModule.forRoot([StudentEffects]),
     // EffectsModule.forFeature(),
     StoreDevtoolsModule.instrument({

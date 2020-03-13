@@ -5,7 +5,9 @@ export enum StudentsActionTypes {
     LoadStudents = '[Students] Load Students',
     StudentsLoadingSuccess = '[Students] Students Loading Success',
     StudentsLoadingFailed = '[Students] Students Loading Failed',
-    GetColumns = '[Students] Get Columns',
+    DeleteStudent = '[Students] Delete Student',
+    StudentDeletingSuccess = '[Students] Students Deleting Success',
+    StudentDeletingFiled = '[Students] Students Deleting Failed',
 }
 
 export class LoadStudents implements Action {
@@ -26,12 +28,28 @@ export class StudentsLoadingFailed implements Action {
     constructor(public error: any) {}
 }
 
-export class GetColumns implements Action {
-    public readonly type: StudentsActionTypes = StudentsActionTypes.GetColumns;
+export class DeleteStudent implements Action {
+    public readonly type: StudentsActionTypes = StudentsActionTypes.DeleteStudent;
+
+    constructor(public id: number) {}
+}
+
+export class StudentDeletingSuccess implements Action {
+    public readonly type: StudentsActionTypes = StudentsActionTypes.StudentDeletingSuccess;
+
+    constructor(public students: Student[]) {}
+}
+
+export class StudentDeletingFiled implements Action {
+    public readonly type: StudentsActionTypes = StudentsActionTypes.StudentDeletingFiled;
+
+    constructor(public error: any) {}
 }
 
 export type StudentsActions =
     | LoadStudents
     | StudentsLoadingSuccess
     | StudentsLoadingFailed
-    | GetColumns;
+    | DeleteStudent
+    | StudentDeletingSuccess
+    | StudentDeletingFiled;

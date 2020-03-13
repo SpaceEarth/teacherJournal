@@ -19,7 +19,6 @@ import { map, share, concatMap } from 'rxjs/operators';
 export class JournalDataService {
   public studentsUrl: string = 'http://localhost:3004/students';
   public subjectsUrl: string = 'http://localhost:3004/subjects';
-  // public studentData$: Observable<Student[]>;
   public studentSubjectData$: Observable<StudentSubject[]>;
 
   constructor(

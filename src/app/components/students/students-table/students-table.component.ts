@@ -2,14 +2,15 @@ import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, OnDestroy } fr
 import { Student } from 'src/app/common/entities/student';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
 import { Observable, fromEvent, Subscription } from 'rxjs';
-import { JournalDataService } from 'src/app/services/journal-data.service';
-import { pluck, debounceTime, distinctUntilChanged, switchMap, map, startWith, tap } from 'rxjs/operators';
-import { LoadStudents } from '../students.actions';
+import { pluck, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { LoadStudents, DeleteStudent } from '../students.actions';
 import { Store } from '@ngrx/store';
+import { AppStore } from 'src/app/common/entities/appStore';
 
 export interface AppState {
   students: Student[];
 }
+
 @Component({
   selector: 'app-students-table',
   templateUrl: './students-table.component.html',
@@ -26,13 +27,12 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   };
 
   constructor(
-    private store$: Store<AppState>,
-    private journalDataService: JournalDataService
+    private store$: Store<AppState>
   ) { }
 
   public ngOnInit(): void {
-    this.students$ = this.store$.select('students');
-    this.columns$ = this.store$.select('students')
+    this.students$ = this.store$.select(AppStore.Students);
+    this.columns$ = this.store$.select(AppStore.Students)
       .pipe(
         map(
           (value = []) => Object.keys(value[0] || {})
@@ -64,6 +64,6 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
       return;
     }
 
-    this.students$ = this.journalDataService.deleteStudentById(student.id);
+    this.store$.dispatch(new DeleteStudent(student.id));
   }
 }
