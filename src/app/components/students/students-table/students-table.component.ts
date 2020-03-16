@@ -6,10 +6,7 @@ import { pluck, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/
 import { deleteStudent, loadStudents } from '../students.actions';
 import { Store } from '@ngrx/store';
 import { AppStore } from 'src/app/common/entities/appStore';
-
-export interface AppState {
-  students: Student[];
-}
+import { AppState } from 'src/app/common/entities/appState';
 
 @Component({
   selector: 'app-students-table',
@@ -21,7 +18,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   private input: ElementRef;
   public columns$: Observable<string[]>;
   public students$: Observable<Student[]>;
-  public serachBarInput$: Subscription;
+  public serachBarInputSub: Subscription;
   public routerLinkConfig: { [key: string]: string | any[] } = {
     addNewUser: [`/${JournalRoutes.Students}`, JournalRoutes.Form],
   };
@@ -41,7 +38,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   public ngAfterViewInit(): void {
-    this.serachBarInput$ = fromEvent(this.input.nativeElement, 'input')
+    this.serachBarInputSub = fromEvent(this.input.nativeElement, 'input')
       .pipe(
         pluck('target', 'value'),
         startWith(''),
@@ -54,7 +51,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   public ngOnDestroy(): void {
-    this.serachBarInput$.unsubscribe();
+    this.serachBarInputSub.unsubscribe();
   }
 
   public onClickDeleteUser(student: Student): void {

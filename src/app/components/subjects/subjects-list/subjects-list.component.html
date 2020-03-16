@@ -2,7 +2,7 @@
     List of subjects:
 </h2>
 <div class="subject-container">
-    <div *ngFor="let subject of studentSubjects" class="subject-block" [routerLink]="getSubjectRouterLink(subject.id)">
+    <div *ngFor="let subject of studentSubjects$ | async" class="subject-block" [routerLink]="getSubjectRouterLink(subject.id)">
         <div title="delete" class="delete-button" (click)="onDeleteSubject($event, subject)"></div>
         {{subject.name}}
     </div>

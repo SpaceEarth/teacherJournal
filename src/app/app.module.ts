@@ -34,6 +34,8 @@ import { studentReducer } from './components/students/students.reducer';
 import { StudentEffects } from './components/students/students.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { AppStore } from './common/entities/appStore';
+import { StudentsSubjectsEffects } from './components/subjects/subjects.effects';
+import { subjectsReducer } from './components/subjects/subjects.reducer';
 
 @NgModule({
   declarations: [
@@ -60,8 +62,11 @@ import { AppStore } from './common/entities/appStore';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ [AppStore.Students]: studentReducer }),
-    EffectsModule.forRoot([StudentEffects]),
+    StoreModule.forRoot({
+      [AppStore.Students]: studentReducer,
+      [AppStore.StudentsSubjects]: subjectsReducer
+    }),
+    EffectsModule.forRoot([StudentEffects, StudentsSubjectsEffects]),
     // EffectsModule.forFeature(),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

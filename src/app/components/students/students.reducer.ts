@@ -6,7 +6,7 @@ const initialState: Student[] = [];
 
 const _studentReducer: ActionReducer<Student[], Action> = createReducer(
   initialState,
-  on(studentsLoadingSuccess, (state, action) => [...(action).students]),
+  on(studentsLoadingSuccess, (_state, action) => [...(action).students]),
   on(studentDeletingSuccess, (state, action) => {
     const ids: number[] = action.students.map(student => student.id);
 
