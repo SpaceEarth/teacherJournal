@@ -1,7 +1,7 @@
 import { createReducer, Action, ActionReducer, on } from '@ngrx/store';
 
 import { StudentSubject } from 'src/app/common/entities/studentSubject';
-import { studentsSubjectsLoadingSuccess, studentSubjectsDeletingSuccess } from './subjects.actions';
+import { studentsSubjectsLoadingSuccess, studentSubjectsDeletingSuccess, studentSubjectAddingSuccess } from './subjects.actions';
 
 const initialState: StudentSubject[] = [];
 
@@ -16,7 +16,8 @@ const _subjectsReducer: ActionReducer<StudentSubject[], Action> = createReducer(
         return state.filter(subj => {
             return subj.id !== deletedId;
         });
-    })
+    }),
+    on(studentSubjectAddingSuccess, (state, action) => [...state, action.studentSubject])
 );
 
 export function subjectsReducer(state: StudentSubject[], action: Action): StudentSubject[] {

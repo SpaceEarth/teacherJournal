@@ -13,7 +13,7 @@ export class StudentSubject {
         public name: string,
         public teacher: string,
         public journal?: Journal,
-        public cabiner?: string,
+        public cabinet?: string,
         public description?: string,
     ) {}
 

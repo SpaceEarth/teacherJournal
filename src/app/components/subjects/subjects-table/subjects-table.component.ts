@@ -5,6 +5,13 @@ import { StudentSubject } from 'src/app/common/entities/studentSubject';
 import { JournalDataService } from 'src/app/services/journal-data.service';
 import { Observable, Subscription } from 'rxjs';
 import { JournalTableService } from 'src/app/services/journalTable/journal-table.service';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/common/entities/appState';
+import { AppStore } from 'src/app/common/entities/appStore';
+import { loadStudentsSubjects } from '../subjects.actions';
+import { map } from 'rxjs/operators';
+import { getStudentSubjectById } from '../subjects.selectors';
+import { loadStudents } from '../../students/students.actions';
 
 enum SubjFields {
   name = 'name',
@@ -40,33 +47,35 @@ export class SubjectsTableComponent implements OnInit, OnDestroy {
   public sortConfig: ISortConfig = { sortPath: [], direction: true };
   public students$: Observable<Student[]>;
   public studentSubject$: Observable<StudentSubject>;
-  public subjectTableViewModel: SubjectTableViewModel[] = [];
   public subjectTableViewModel$: Observable<SubjectTableViewModel[]>;
 
   constructor(
     private route: ActivatedRoute,
+    private store$: Store<AppState>,
     private journalDataService: JournalDataService,
     private journalTableService: JournalTableService
   ) { }
 
   public ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
-    this.studentSubject$ = this.journalDataService.getSubjectById(this.id);
+
+    this.store$.dispatch(loadStudentsSubjects());
+    this.studentSubject$ = this.store$.pipe(select(getStudentSubjectById, { id: this.id }));
     this.subscriptions.push(
       this.studentSubject$
         .subscribe(subjectData => {
           this.subjectData = subjectData;
         })
     );
-    this.students$ = this.journalDataService.getStudentsData();
+    this.store$.dispatch(loadStudents({ searchKey: '' }));
+    this.students$ = this.store$.select(AppStore.Students);
     this.subjectTableViewModel$ = this.journalTableService.getSubjectTableViewModel(this.students$, this.studentSubject$);
     this.subscriptions.push(
       this.subjectTableViewModel$.subscribe((data) => {
-        this.subjectTableViewModel = data;
         this.dates = Object.keys(
           (data[0] && data[0].datesWithMarks) || []
         );
-        this.columns = this.columns.concat(this.dates);
+        this.columns = Array.from(new Set(this.columns.concat(this.dates))); // TODO: optimize
       })
     );
   }
@@ -76,7 +85,7 @@ export class SubjectsTableComponent implements OnInit, OnDestroy {
   }
 
   public avrgMarkField(field: string): boolean {
-    return field === 'averageMark';
+    return field === SubjFields.averageMark;
   }
 
   public onAddDate(): void {
@@ -91,14 +100,9 @@ export class SubjectsTableComponent implements OnInit, OnDestroy {
       this.journalDataService.addSubjectDate(this.id, this.subjectData, date)
         .subscribe(data => {
           this.subjectData = <StudentSubject>data;
-          this.subjectTableViewModel = this.subjectTableViewModel
-            .map(el => {
-              el.datesWithMarks[date] = undefined;
-              return el;
-            });
-          this.dates = Object.keys(
-            (this.subjectTableViewModel[0] && this.subjectTableViewModel[0].datesWithMarks) || []
-          );
+          // this.dates = Object.keys(
+          //   (this.subjectTableViewModel[0] && this.subjectTableViewModel[0].datesWithMarks) || []
+          // );
 
           this.columns = this.columns.concat(date);
         })

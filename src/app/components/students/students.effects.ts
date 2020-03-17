@@ -11,7 +11,9 @@ import {
   studentsLoadingFailed,
   deleteStudent,
   studentDeletingSuccess,
-  studentDeletingFiled
+  studentDeletingFiled,
+  studentAddingSuccess,
+  StudentAddingFiled
 } from './students.actions';
 import { JournalDataService } from 'src/app/services/journal-data.service';
 
@@ -42,6 +44,21 @@ export class StudentEffects {
             .pipe(
               map(students => studentDeletingSuccess({ students })),
               catchError(error => of(studentDeletingFiled({ error })))
+            );
+        })
+      );
+
+  @Effect()
+  public addStudent$:
+    Observable<any> = this.action$
+      .pipe(
+        ofType(StudentsActionTypes.AddStudent),
+        switchMap((action: any) => {
+          return this.journalDataService.addStudent(action.student)
+            .pipe(
+              map((student) => studentAddingSuccess({ student })),
+              // map(() => go()))
+              catchError(error => of(StudentAddingFiled({ error })))
             );
         })
       );

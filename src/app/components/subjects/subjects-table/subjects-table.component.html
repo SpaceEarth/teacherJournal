@@ -5,7 +5,7 @@
   <div class="new-date-button-wrapper">
     <div class="add-new-date" (click)="onAddDate()"></div>
   </div>
-  <mat-table [dataSource]="subjectTableViewModel | appTableSort: sortConfig">
+  <mat-table [dataSource]="subjectTableViewModel$ | async | appTableSort: sortConfig">
     <ng-container [matColumnDef]="subj.name">
       <mat-header-cell (click)="onHeadClick([subj.name])" *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>

@@ -10,7 +10,9 @@ import {
     studentsSubjectsLoadingSuccess,
     studentsSubjectsLoadingFailed,
     studentSubjectsDeletingSuccess,
-    studentSubjectsDeletingFiled
+    studentSubjectsDeletingFiled,
+    studentSubjectAddingSuccess,
+    studentSubjectAddingFiled
 } from './subjects.actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 
@@ -39,6 +41,19 @@ export class StudentsSubjectsEffects {
                     .pipe(
                         map(() => studentSubjectsDeletingSuccess({ id: action.id })),
                         catchError(error => of(studentSubjectsDeletingFiled({ error })))
+                    );
+            })
+        );
+
+    @Effect()
+    public addStudentSubject: Observable<any> = this.action$
+        .pipe(
+            ofType(StudentsSubjectsActionTypes.AddStudentSubject),
+            switchMap((action: any) => {
+                return this.journalDataService.addSubject(action.studentSubject)
+                    .pipe(
+                        map((studentSubject) => studentSubjectAddingSuccess({ studentSubject })),
+                        catchError(error => of(studentSubjectAddingFiled({ error })))
                     );
             })
         );

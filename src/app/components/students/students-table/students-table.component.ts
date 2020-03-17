@@ -2,11 +2,12 @@ import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, OnDestroy } fr
 import { Student } from 'src/app/common/entities/student';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
 import { Observable, fromEvent, Subscription } from 'rxjs';
-import { pluck, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { pluck, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
 import { deleteStudent, loadStudents } from '../students.actions';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppStore } from 'src/app/common/entities/appStore';
 import { AppState } from 'src/app/common/entities/appState';
+import { getStudentsColumns } from '../students.selector';
 
 @Component({
   selector: 'app-students-table',
@@ -29,12 +30,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
 
   public ngOnInit(): void {
     this.students$ = this.store$.select(AppStore.Students);
-    this.columns$ = this.store$.select(AppStore.Students)
-      .pipe(
-        map(
-          (value = []) => Object.keys(value[0] || {})
-        )
-      );
+    this.columns$ = this.store$.pipe(select(getStudentsColumns));
   }
 
   public ngAfterViewInit(): void {

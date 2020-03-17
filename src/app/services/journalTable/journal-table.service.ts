@@ -42,7 +42,7 @@ export class JournalTableService {
       students$,
       studentSubject$
     ).pipe(
-      map(([students, { journal }]) => {
+      map(([students, { journal } = { journal: {}}]) => {
         return students.map((student) => {
           return this.transformToJournalTableViewModel(student, journal);
         });

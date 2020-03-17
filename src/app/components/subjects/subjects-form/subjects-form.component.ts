@@ -4,6 +4,9 @@ import { JournalDataService } from 'src/app/services/journal-data.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/common/entities/appState';
+import { addStudentSubject } from '../subjects.actions';
 
 @Component({
   selector: 'app-subjects-form',
@@ -13,32 +16,30 @@ import { JournalRoutes } from 'src/app/common/enums/router.enum';
     './subjects-form.component.scss'
   ]
 })
-export class SubjectsFormComponent implements OnDestroy {
+export class SubjectsFormComponent {
   public journalDataAddSubjectSub: Subscription;
   public subjectForm: FormGroup = this.fb.group({
     'name': ['', Validators.required],
     'teacher': ['', Validators.required],
-    'cabiner': [''],
+    'cabinet': [''],
     'description': ['']
   });
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private journalDataService: JournalDataService
-  ) {}
+    private store$: Store<AppState>
+  ) { }
 
-  // take(1);
   public onSubmit(): void {
-    this.journalDataAddSubjectSub = this.journalDataService.addSubject({...this.subjectForm.value, journal: {}}).subscribe(data => {
-      this.router.navigate([`/${JournalRoutes.Subjects}`, JournalRoutes.List]);
-    });
+    this.store$.dispatch(addStudentSubject({
+      studentSubject: {
+        ...this.subjectForm.value,
+        journal: {}
+      }
+    }));
+    // this.journalDataAddSubjectSub = this.journalDataService.addSubject({...this.subjectForm.value, journal: {}}).subscribe(data => {
+    this.router.navigate([`/${JournalRoutes.Subjects}`, JournalRoutes.List]);
+    // });
   }
-
-  public ngOnDestroy(): void {
-    if (this.journalDataAddSubjectSub) {
-      this.journalDataAddSubjectSub.unsubscribe();
-    }
-  }
-
 }

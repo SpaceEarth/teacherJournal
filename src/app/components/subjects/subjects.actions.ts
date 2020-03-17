@@ -9,6 +9,9 @@ export enum StudentsSubjectsActionTypes {
     DeleteStudentSubjects = '[StudentsSubjects] Delete StudentSubjects',
     StudentSubjectsDeletingSuccess = '[StudentsSubjects] StudentsSubjects Deleting Success',
     StudentSubjectsDeletingFiled = '[StudentsSubjects] StudentsSubjects Deleting Failed',
+    AddStudentSubject = '[Students] Add StudentSubject',
+    StudentSubjectAddingSuccess = '[Students] StudentsSubject Adding Success',
+    StudentSubjectAddingFiled = '[Students] StudentsSubject Adding Failed',
 }
 
 export const loadStudentsSubjects = createAction(
@@ -37,5 +40,20 @@ export const studentSubjectsDeletingSuccess = createAction(
 
 export const studentSubjectsDeletingFiled = createAction(
     StudentsSubjectsActionTypes.StudentSubjectsDeletingFiled,
+    props<{ error: any }>()
+);
+
+export const addStudentSubject = createAction(
+    StudentsSubjectsActionTypes.AddStudentSubject,
+    props<{ studentSubject: StudentSubject }>()
+);
+
+export const studentSubjectAddingSuccess = createAction(
+    StudentsSubjectsActionTypes.StudentSubjectAddingSuccess,
+    props<{ studentSubject: StudentSubject }>()
+);
+
+export const studentSubjectAddingFiled = createAction(
+    StudentsSubjectsActionTypes.StudentSubjectAddingFiled,
     props<{ error: any }>()
 );
