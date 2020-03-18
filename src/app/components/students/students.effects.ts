@@ -6,23 +6,22 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 
 import {
   StudentsActionTypes,
-  loadStudents,
   studentsLoadingSuccess,
   studentsLoadingFailed,
-  deleteStudent,
   studentDeletingSuccess,
   studentDeletingFiled,
   studentAddingSuccess,
   StudentAddingFiled
 } from './students.actions';
 import { JournalDataService } from 'src/app/services/journal-data.service';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class StudentEffects {
 
   @Effect()
   public loadStudents$:
-    Observable<any> = this.action$
+    Observable<Action> = this.action$
       .pipe(
         ofType(StudentsActionTypes.LoadStudents),
         switchMap((action: any) => {
@@ -36,7 +35,7 @@ export class StudentEffects {
 
   @Effect()
   public deleteStudent$:
-    Observable<any> = this.action$
+    Observable<Action> = this.action$
       .pipe(
         ofType(StudentsActionTypes.DeleteStudent),
         switchMap((action: any) => {
@@ -50,7 +49,7 @@ export class StudentEffects {
 
   @Effect()
   public addStudent$:
-    Observable<any> = this.action$
+    Observable<Action> = this.action$
       .pipe(
         ofType(StudentsActionTypes.AddStudent),
         switchMap((action: any) => {

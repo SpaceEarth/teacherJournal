@@ -17,12 +17,13 @@ import {
     studentSubjectDateAddingFiled
 } from './subjects.actions';
 import { switchMap, map, catchError, first } from 'rxjs/operators';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class StudentsSubjectsEffects {
 
     @Effect()
-    public loadStudentsSubjects: Observable<any> = this.action$.
+    public loadStudentsSubjects: Observable<Action> = this.action$.
         pipe(
             ofType(StudentsSubjectsActionTypes.LoadStudentsSubjects),
             switchMap(() => {
@@ -35,7 +36,7 @@ export class StudentsSubjectsEffects {
         );
 
     @Effect()
-    public deleteStudentsSubject: Observable<any> = this.action$.
+    public deleteStudentsSubject: Observable<Action> = this.action$.
         pipe(
             ofType(StudentsSubjectsActionTypes.DeleteStudentSubjects),
             switchMap((action: any) => {
@@ -48,7 +49,7 @@ export class StudentsSubjectsEffects {
         );
 
     @Effect()
-    public addStudentSubject: Observable<any> = this.action$
+    public addStudentSubject: Observable<Action> = this.action$
         .pipe(
             ofType(StudentsSubjectsActionTypes.AddStudentSubject),
             switchMap((action: any) => {
@@ -61,7 +62,7 @@ export class StudentsSubjectsEffects {
         );
 
     @Effect()
-    public addStudentSubjectDate: Observable<any> = this.action$
+    public addStudentSubjectDate: Observable<Action> = this.action$
         .pipe(
             ofType(StudentsSubjectsActionTypes.AddStudentSubjectDate),
             switchMap(({id, studentSubject, date}) => {
