@@ -1,5 +1,5 @@
-<h2 *ngIf="subjectData">
-    {{subjectData && subjectData.name}}
+<h2 *ngIf="studentSubject$ | async as studentSubject">
+    {{studentSubject && studentSubject.name}}
 </h2>
 <div>
   <div class="new-date-button-wrapper">
@@ -18,12 +18,12 @@
       <mat-header-cell (click)="onHeadClick([subj.averageMark])" *matHeaderCellDef> Average Mark </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.averageMark}} </mat-cell>
     </ng-container>
-    <ng-container [matColumnDef]="date" *ngFor="let date of dates">
-      <mat-header-cell (click)="onHeadClick([subj.datesWithMarks, date])" *matHeaderCellDef> {{date}} </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.datesWithMarks[date]}} </mat-cell>
+    <ng-container [matColumnDef]="date" *ngFor="let date of dates$ | async">
+      <mat-header-cell (click)="onHeadClick([date])" *matHeaderCellDef> {{date}} </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row[date]}} </mat-cell>
     </ng-container>
     
-    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row [appMarkColor]="row.averageMark" *matRowDef="let row; columns: columns"></mat-row>
+    <mat-header-row *matHeaderRowDef="columns$ | async"></mat-header-row>
+    <mat-row [appMarkColor]="row.averageMark" *matRowDef="let row; columns: columns$ | async"></mat-row>
   </mat-table>
 </div>

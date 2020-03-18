@@ -21,13 +21,12 @@ export class JournalTableService {
     const subjectTableViewModel: SubjectTableViewModel = {
       name,
       lastName,
-      averageMark: this.studentService.getAverageMark(journal, studentId),
-      datesWithMarks: {}
+      averageMark: this.studentService.getAverageMark(journal, studentId)
     };
 
     for (let date of Object.keys(journal || [])) {
       const mark: number | undefined = journal[date][studentId];
-      subjectTableViewModel.datesWithMarks[date] = mark;
+      subjectTableViewModel[date] = mark;
     }
 
     return subjectTableViewModel;

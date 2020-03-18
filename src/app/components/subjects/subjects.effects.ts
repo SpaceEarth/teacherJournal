@@ -12,9 +12,11 @@ import {
     studentSubjectsDeletingSuccess,
     studentSubjectsDeletingFiled,
     studentSubjectAddingSuccess,
-    studentSubjectAddingFiled
+    studentSubjectAddingFiled,
+    studentSubjectDateAddingSuccess,
+    studentSubjectDateAddingFiled
 } from './subjects.actions';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, first } from 'rxjs/operators';
 
 @Injectable()
 export class StudentsSubjectsEffects {
@@ -57,6 +59,19 @@ export class StudentsSubjectsEffects {
                     );
             })
         );
+
+    @Effect()
+    public addStudentSubjectDate: Observable<any> = this.action$
+        .pipe(
+            ofType(StudentsSubjectsActionTypes.AddStudentSubjectDate),
+            switchMap(({id, studentSubject, date}) => {
+                return this.journalDataService.addSubjectDate(id, studentSubject, date)
+                    .pipe(
+                        map(() => studentSubjectDateAddingSuccess({ id, date })),
+                        catchError((error) => of(studentSubjectDateAddingFiled({ error })))
+                    );
+            })
+        )
 
     constructor(
         private action$: Actions,

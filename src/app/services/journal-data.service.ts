@@ -65,7 +65,7 @@ export class JournalDataService {
 
   public addSubjectDate(id: number, subjectData: StudentSubject, date: string): Observable<Object> {
     const url: string = `${this.subjectsUrl}/${id}`;
-    const data: StudentSubject = { ...subjectData };
+    const data: StudentSubject = JSON.parse(JSON.stringify(subjectData));
 
     if (!data.journal) {
       data.journal = {};

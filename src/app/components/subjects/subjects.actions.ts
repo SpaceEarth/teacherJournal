@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { StudentSubject } from 'src/app/common/entities/studentSubject';
-import { studentSubjects } from 'src/app/common/constants/constants-subjects';
 
 export enum StudentsSubjectsActionTypes {
     LoadStudentsSubjects = '[StudentsSubjects] Load StudentsSubjects',
@@ -12,6 +11,9 @@ export enum StudentsSubjectsActionTypes {
     AddStudentSubject = '[Students] Add StudentSubject',
     StudentSubjectAddingSuccess = '[Students] StudentsSubject Adding Success',
     StudentSubjectAddingFiled = '[Students] StudentsSubject Adding Failed',
+    AddStudentSubjectDate = '[Students] Add StudentSubject Date',
+    StudentSubjectDateAddingSuccess = '[Students] StudentsSubject Date Adding Success',
+    StudentSubjectDateAddingFiled = '[Students] StudentsSubject Date Adding Failed',
 }
 
 export const loadStudentsSubjects = createAction(
@@ -55,5 +57,27 @@ export const studentSubjectAddingSuccess = createAction(
 
 export const studentSubjectAddingFiled = createAction(
     StudentsSubjectsActionTypes.StudentSubjectAddingFiled,
+    props<{ error: any }>()
+);
+
+export const addStudentSubjectDate = createAction(
+    StudentsSubjectsActionTypes.AddStudentSubjectDate,
+    props<{
+        id: number,
+        date: string,
+        studentSubject: StudentSubject
+    }>()
+);
+
+export const studentSubjectDateAddingSuccess = createAction(
+    StudentsSubjectsActionTypes.StudentSubjectDateAddingSuccess,
+    props<{
+        id: number,
+        date: string
+    }>()
+);
+
+export const studentSubjectDateAddingFiled = createAction(
+    StudentsSubjectsActionTypes.StudentSubjectDateAddingFiled,
     props<{ error: any }>()
 );

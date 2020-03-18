@@ -1,6 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { JournalDataService } from 'src/app/services/journal-data.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
