@@ -3,35 +3,33 @@ import { Student } from 'src/app/common/entities/student';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
 import { Observable, fromEvent, Subscription } from 'rxjs';
 import { pluck, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
-import { deleteStudent, loadStudents } from '../students.actions';
-import { Store, select } from '@ngrx/store';
-import { AppStore } from 'src/app/common/entities/appStore';
-import { AppState } from 'src/app/common/entities/appState';
-import { getStudentsColumns } from '../students.selector';
+import { Store, Select } from '@ngxs/store';
+import { StudentsActions } from '../students.actions';
+import { StudentState } from '../students.state';
 
 @Component({
   selector: 'app-students-table',
   templateUrl: './students-table.component.html',
   styleUrls: ['./students-table.component.scss']
 })
-export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy {
+export class StudentsTableComponent implements AfterViewInit, OnDestroy {
   @ViewChild('searchBar')
   private input: ElementRef;
+
+  @Select(StudentState.getStudentColumns)
   public columns$: Observable<string[]>;
+
+  @Select(StudentState.getStudents)
   public students$: Observable<Student[]>;
+
   public serachBarInputSub: Subscription;
   public routerLinkConfig: { [key: string]: string | any[] } = {
     addNewUser: [`/${JournalRoutes.Students}`, JournalRoutes.Form],
   };
 
   constructor(
-    private store$: Store<AppState>
+    private store: Store
   ) { }
-
-  public ngOnInit(): void {
-    this.students$ = this.store$.select(AppStore.Students);
-    this.columns$ = this.store$.pipe(select(getStudentsColumns));
-  }
 
   public ngAfterViewInit(): void {
     this.serachBarInputSub = fromEvent(this.input.nativeElement, 'input')
@@ -42,7 +40,7 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
         distinctUntilChanged()
       )
       .subscribe((searchKey: string) => {
-        this.store$.dispatch(loadStudents({ searchKey }));
+        this.store.dispatch(new StudentsActions.Load(searchKey));
       });
   }
 
@@ -57,6 +55,6 @@ export class StudentsTableComponent implements OnInit, AfterViewInit, OnDestroy 
       return;
     }
 
-    this.store$.dispatch(deleteStudent({ id: student.id }));
+    this.store.dispatch(new StudentsActions.Delete(student.id));
   }
 }

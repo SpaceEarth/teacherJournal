@@ -2,9 +2,8 @@ import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
-import { AppState } from 'src/app/common/entities/appState';
-import { Store } from '@ngrx/store';
-import { addStudent } from '../students.actions';
+import { Store } from '@ngxs/store';
+import { StudentsActions } from '../students.actions';
 
 @Component({
   selector: 'app-students-form',
@@ -24,12 +23,12 @@ export class StudentsFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private store$: Store<AppState>,
+    private store: Store,
     private router: Router
   ) { }
 
   public onSubmit(): void {
-    this.store$.dispatch(addStudent({ student: this.studentForm.value }));
+    this.store.dispatch(new StudentsActions.Add(this.studentForm.value ));
     // this.journalDataAddStudentSub = this.journalDataService.addStudent(this.studentForm.value).subscribe(() => {
     this.router.navigate([`/${JournalRoutes.Students}`, JournalRoutes.Table]);
     // });

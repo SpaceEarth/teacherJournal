@@ -4,8 +4,8 @@ import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './root/app.component';
@@ -29,13 +29,9 @@ import { SplitCamelCasePipe } from './pipes/camelCase/split-camel-case.pipe';
 import { MarkColorDirective } from './directives/markColor/mark-color.directive';
 import { TableSortPipe } from './pipes/tableSort/table-sort.pipe';
 import { AuthInterceptor } from './interceptors/auth.service';
-
-import { studentReducer } from './components/students/students.reducer';
-import { StudentEffects } from './components/students/students.effects';
-import { EffectsModule } from '@ngrx/effects';
-import { AppStore } from './common/entities/appStore';
-import { StudentsSubjectsEffects } from './components/subjects/subjects.effects';
-import { subjectsReducer } from './components/subjects/subjects.reducer';
+import { AppState } from './common/entities/appState';
+import { StudentState } from './components/students/students.state';
+import { StudentSubjectsState } from './components/subjects/subjects.state';
 
 @NgModule({
   declarations: [
@@ -62,15 +58,8 @@ import { subjectsReducer } from './components/subjects/subjects.reducer';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({
-      [AppStore.Students]: studentReducer,
-      [AppStore.StudentsSubjects]: subjectsReducer
-    }),
-    EffectsModule.forRoot([StudentEffects, StudentsSubjectsEffects]),
-    // EffectsModule.forFeature(),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-    }),
+    NgxsModule.forRoot([StudentState, StudentSubjectsState], { developmentMode: true }),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
     MatTableModule,
     ReactiveFormsModule,
     HttpClientModule,

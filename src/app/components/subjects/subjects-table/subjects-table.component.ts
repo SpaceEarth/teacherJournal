@@ -4,13 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { StudentSubject } from 'src/app/common/entities/studentSubject';
 import { Observable, of, combineLatest } from 'rxjs';
 import { JournalTableService } from 'src/app/services/journalTable/journal-table.service';
-import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/common/entities/appState';
-import { AppStore } from 'src/app/common/entities/appStore';
-import { loadStudentsSubjects, addStudentSubjectDate } from '../subjects.actions';
-import { switchMap, first } from 'rxjs/operators';
-import { getStudentSubjectById, studentSubjectsDates } from '../subjects.selectors';
-import { loadStudents } from '../../students/students.actions';
+import { Store, Select } from '@ngxs/store';
+import { switchMap, first, map, tap } from 'rxjs/operators';
+import { StudentsActions } from '../../students/students.actions';
+import { StudentsSubjectsAction } from '../subjects.actions';
+import { StudentSubjectsState } from '../subjects.state';
+import { StudentState } from '../../students/students.state';
 
 enum SubjFields {
   name = 'name',
@@ -41,26 +40,34 @@ export class SubjectsTableComponent implements OnInit {
   public sortConfig: ISortConfig = { sortPath: [], direction: true };
   public dates$: Observable<string[]>;
   public columns$: Observable<string[]>;
+
+  @Select(StudentState.getStudents)
   public students$: Observable<Student[]>;
   public studentSubject$: Observable<StudentSubject>;
   public subjectTableViewModel$: Observable<SubjectTableViewModel[]>;
 
   constructor(
     private route: ActivatedRoute,
-    private store$: Store<AppState>,
+    private store: Store,
     private journalTableService: JournalTableService
   ) { }
 
   public ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
 
-    this.store$.dispatch(loadStudents({ searchKey: '' }));
-    this.store$.dispatch(loadStudentsSubjects());
-    this.dates$ = this.store$.pipe(select(studentSubjectsDates, { id: this.id }));
-    this.students$ = this.store$.select(AppStore.Students);
-    this.studentSubject$ = this.store$.pipe(select(getStudentSubjectById, { id: this.id }));
+    this.store.dispatch([
+      new StudentsActions.Load(''),
+      new StudentsSubjectsAction.Load()
+    ]);
+    this.dates$ = this.store
+      .select(StudentSubjectsState.getStudentSubjectsDates)
+      .pipe(map(filterFn => filterFn(this.id)));
+    this.studentSubject$ = this.store
+      .select(StudentSubjectsState.getStudentSubjectById)
+      .pipe(map(filterFn => filterFn(this.id)));
 
     this.subjectTableViewModel$ = this.journalTableService.getSubjectTableViewModel(this.students$, this.studentSubject$);
+
     this.columns$ = this.subjectTableViewModel$.pipe(
       switchMap((subjVM) => {
         return of([...Object.keys(subjVM[0] || {})]);
@@ -85,7 +92,7 @@ export class SubjectsTableComponent implements OnInit {
         return;
       }
 
-      this.store$.dispatch(addStudentSubjectDate({ id: this.id, date, studentSubject }));
+      this.store.dispatch(new StudentsSubjectsAction.AddDate(this.id, date, studentSubject));
     });
   }
 

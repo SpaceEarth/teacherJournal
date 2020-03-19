@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { JournalRoutes } from 'src/app/common/enums/router.enum';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/common/entities/appState';
-import { addStudentSubject } from '../subjects.actions';
+import { Store } from '@ngxs/store';
+import { StudentsSubjectsAction } from '../subjects.actions';
 
 @Component({
   selector: 'app-subjects-form',
@@ -27,15 +26,13 @@ export class SubjectsFormComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private store$: Store<AppState>
+    private store: Store
   ) { }
 
   public onSubmit(): void {
-    this.store$.dispatch(addStudentSubject({
-      studentSubject: {
-        ...this.subjectForm.value,
-        journal: {}
-      }
+    this.store.dispatch(new StudentsSubjectsAction.Add({
+      ...this.subjectForm.value,
+      journal: {}
     }));
     // this.journalDataAddSubjectSub = this.journalDataService.addSubject({...this.subjectForm.value, journal: {}}).subscribe(data => {
     this.router.navigate([`/${JournalRoutes.Subjects}`, JournalRoutes.List]);
