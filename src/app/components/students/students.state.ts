@@ -1,5 +1,5 @@
 import { Observable, EMPTY } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 
@@ -34,8 +34,16 @@ export class StudentState {
     return this.journalDataService.getStudentsData(action.searchKey).pipe(
       map(students => setState( students )), // TODO: rewrite to dispatch
       catchError(() => EMPTY)
+      // tap(success => success ?
+      //   dispatch(StudentsActions.LoadingSuccess) :
+      //   dispatch(StudentsActions.LoadingFailed)), // TODO: rewrite to dispatch
     );
   }
+
+  // @Action(StudentsActions.LoadingSuccess)
+  // public loadingSuccess({ setState }: StateContext<Student[]>, action: StudentsActions.LoadingSuccess): Student[] {
+  //   return setState(action.students);
+  // }
 
   @Action(StudentsActions.Delete)
   public deleteStudent({ setState }: StateContext<Student[]>, action: StudentsActions.Delete): Observable<Student[]> {
@@ -53,7 +61,7 @@ export class StudentState {
       map((student) => { // TODO: rewrite to dispatch
         const state: Student[] = getState();
 
-        return setState( [...state, student] );
+        return setState([...state, student]);
       }),
       catchError(() => EMPTY)
     );
