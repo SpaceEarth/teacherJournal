@@ -1,9 +1,34 @@
-<app-table
-    [data]="students"
-    [displayedColumns]="columns"
-></app-table>
-<div class="button-wrapper" [routerLink]="['/students-form']">
-    <app-button
-        [title]="'add new user'"
-    ></app-button>
+<div class="search-block">
+    <input #searchBar type="text">
 </div>
+<!-- <ng-container *ngIf="storeStudents.getstudents() | async as students"></ng-container> -->
+<ng-container *ngIf="students$ | async as students">
+    <mat-table [dataSource]="students">
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+            <mat-cell (click)="onClickDeleteUser(row)" *matCellDef="let row" class="id-cell"> {{row.id}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.lastName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.address}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columns$ | async"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columns$ | async"></mat-row>
+    </mat-table>
+    <div class="button-wrapper" [routerLink]="routerLinkConfig.addNewUser">
+        <app-button [title]="'add new user'"></app-button>
+    </div>
+</ng-container>

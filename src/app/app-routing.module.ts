@@ -8,28 +8,42 @@ import { SubjectsFormComponent } from './components/subjects/subjects-form/subje
 import { StudentsTableComponent } from './components/students/students-table/students-table.component';
 import { StudentsFormComponent } from './components/students/students-form/students-form.component';
 import { SubjectsTableComponent } from './components/subjects/subjects-table/subjects-table.component';
+import { StudentListComponent } from './components/statistics/list/student-list/student-list.component';
+import { SubjectListComponent } from './components/statistics/list/subject-list/subject-list.component';
+import { SubjectChartComponent } from './components/statistics/chart/subject-chart/subject-chart.component';
+import { StudentChartComponent } from './components/statistics/chart/student-chart/student-chart.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ExportGuard } from './guards/export.guard';
+import { JournalRoutes, JournalOutlets } from './common/enums/router.enum';
 
+const studentsRoutes: Routes = [
+  { path: JournalRoutes.Table, component: StudentsTableComponent },
+  { path: JournalRoutes.Form, component: StudentsFormComponent },
+  { path: '', redirectTo: `/${JournalRoutes.Students}/${JournalRoutes.Table}`, pathMatch: 'full' },
+];
+
+const subjectsRoutes: Routes = [
+  { path: JournalRoutes.List, component: SubjectsListComponent },
+  { path: JournalRoutes.Form, component: SubjectsFormComponent },
+  { path: `${JournalRoutes.Table}/:${JournalRoutes.Id}`, component: SubjectsTableComponent },
+  { path: '', redirectTo: `/${JournalRoutes.Subjects}/${JournalRoutes.List}`, pathMatch: 'full' },
+];
 
 const routes: Routes = [
-  { path: 'students-table', component: StudentsTableComponent },
-  { path: 'students-form', component: StudentsFormComponent },
-  { path: 'subjects-list', component: SubjectsListComponent },
-  { path: 'subjects-form', component: SubjectsFormComponent },
-  { path: 'subjects-table/:id', component: SubjectsTableComponent },
-  { path: 'statistics', component: StatisticsComponent },
-  { path: 'export', component: ExportComponent },
-  { path: 'subjects',
-    redirectTo: '/subjects-list',
-    pathMatch: 'full'
-  },
+  { path: JournalRoutes.Students, children: studentsRoutes },
+  { path: JournalRoutes.Subjects, children: subjectsRoutes },
+  { path: JournalRoutes.Statistics, component: StatisticsComponent, children: [
+    { path: JournalRoutes.Students, component: StudentListComponent, outlet: JournalOutlets.StatisticList },
+    { path: JournalRoutes.Subjects, component: SubjectListComponent, outlet: JournalOutlets.StatisticList },
+    { path: `${JournalRoutes.Students}/:${JournalRoutes.Id}`, component: StudentChartComponent, outlet: JournalOutlets.StatisticBlock },
+    { path: `${JournalRoutes.Subjects}/:${JournalRoutes.Id}`, component: SubjectChartComponent, outlet: JournalOutlets.StatisticBlock },
+  ] },
+  { path: JournalRoutes.Export, component: ExportComponent, canActivate: [ExportGuard] },
   { path: '',
-    redirectTo: '/students-table',
-    pathMatch: 'full'
+    redirectTo: `/${JournalRoutes.Students}/${JournalRoutes.Table}`,
+    pathMatch: 'full',
   },
-  { path: '**', 
-    redirectTo: '/students-table',
-    pathMatch: 'full' 
-  }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

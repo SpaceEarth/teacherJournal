@@ -2,11 +2,12 @@
     List of subjects:
 </h2>
 <div class="subject-container">
-    <div *ngFor="let subject of subjects" class="subject-block" [routerLink]="['/subjects-table', subject.id]">
+    <div *ngFor="let subject of studentSubjects" class="subject-block" [routerLink]="getSubjectRouterLink(subject.id)">
+        <div title="delete" class="delete-button" (click)="onDeleteSubject($event, subject)"></div>
         {{subject.name}}
     </div>
 </div>
-<div class="button-wrapper" [routerLink]="['/subjects-form']">
+<div class="button-wrapper" [routerLink]="routerLinkConfig.addNewSubject">
     <app-button
         [title]="'add new subject'"
     ></app-button>

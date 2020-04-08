@@ -1,7 +1,11 @@
+@import 'src/app/styles/global/variables.scss';
+
 .wrapper {
     min-height: 1000px;
-    width: 715px;
+    min-width: 715px;
+    height: 100vh;
+    width: 100vw;
     margin: 0 auto;
-    background-color: #1A1A1C;
+    background-color: $APPLICATION_BACKGROUND_COLOR;
     overflow: auto;
 }

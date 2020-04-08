@@ -15,21 +15,21 @@ describe('AppComponent', () => {
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+    const fixture: any = TestBed.createComponent(AppComponent);
+    const app: any = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'scheduleTask'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+    const fixture: any = TestBed.createComponent(AppComponent);
+    const app: any = fixture.componentInstance;
     expect(app.title).toEqual('scheduleTask');
   });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture: any = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
+    const compiled: any = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain('scheduleTask app is running!');
   });
 });

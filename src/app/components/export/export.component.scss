@@ -1,3 +1,5 @@
+@import 'src/app/styles/global/variables.scss';
+
 .wrapper {
     width: 450px;
     margin: 100px auto 0 auto;
@@ -6,18 +8,17 @@
 }
 
 button {
-    background-color: #1A1A1C;
+    background-color: $APPLICATION_BACKGROUND_COLOR;
 }
 
 .pdf-export {
-    content: url("../../static/pictures/pdf-icon.png");
+    content: url($PDF_SRC_ICON);
     width: 100px;
     height: 100px;
 }
 
 .excel-export {
-    content: url("../../static/pictures/excel-icon.svg");
-    // background-color: black;
+    content: url($EXCEL_SRC_ICON);
     width: 100px;
     height: 100px;
 }

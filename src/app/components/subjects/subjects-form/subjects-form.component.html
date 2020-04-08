@@ -1,5 +1,29 @@
-<app-form
-    [instance]="'subject'"
-    [formFields]="formFields"
-    [submitName]="'Add'"
-></app-form>
+<h2>Add new Subject</h2>
+<div class="form-wrapper">
+    <form [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label>
+                Name:
+                <input class="input-block" type="text" formControlName="name">
+            </label>
+        </div>
+        <div>
+            <label>
+                Teacher:
+                <input class="input-block" type="text" formControlName="teacher">
+            </label>
+        </div>
+        <div>
+            <label>
+                Cabiner:
+                <input class="input-block" type="text" formControlName="cabiner">
+            </label>
+        </div>
+        <div>
+            Description:
+            <textarea class="input-block textArea-block" formControlName="description"></textarea>
+        </div>
+        
+        <button type="submit" [disabled]="!subjectForm.valid">Add</button>
+    </form>
+</div>

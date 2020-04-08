@@ -1,4 +1,29 @@
-<app-table
-    [data]="students"
-    [displayedColumns]="columns"
-></app-table>
+<h2 *ngIf="subjectData">
+    {{subjectData && subjectData.name}}
+</h2>
+<div>
+  <div class="new-date-button-wrapper">
+    <div class="add-new-date" (click)="onAddDate()"></div>
+  </div>
+  <mat-table [dataSource]="subjectTableViewModel | appTableSort: sortConfig">
+    <ng-container [matColumnDef]="subj.name">
+      <mat-header-cell (click)="onHeadClick([subj.name])" *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+    <ng-container [matColumnDef]="subj.lastName">
+      <mat-header-cell (click)="onHeadClick([subj.lastName])" *matHeaderCellDef> Last Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.lastName}} </mat-cell>
+    </ng-container>
+    <ng-container [matColumnDef]="subj.averageMark">
+      <mat-header-cell (click)="onHeadClick([subj.averageMark])" *matHeaderCellDef> Average Mark </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.averageMark}} </mat-cell>
+    </ng-container>
+    <ng-container [matColumnDef]="date" *ngFor="let date of dates">
+      <mat-header-cell (click)="onHeadClick([subj.datesWithMarks, date])" *matHeaderCellDef> {{date}} </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.datesWithMarks[date]}} </mat-cell>
+    </ng-container>
+    
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row [appMarkColor]="row.averageMark" *matRowDef="let row; columns: columns"></mat-row>
+  </mat-table>
+</div>

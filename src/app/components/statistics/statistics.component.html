@@ -1,14 +1,18 @@
 <div class="wrapper">
-    <div class="students">
+    <div class="students" [routerLink]="routerLinkConfig.students">
         Students
     </div>
-    <div class="subjects">
+    <div class="subjects" [routerLink]="routerLinkConfig.subjects">
         Subjects
     </div>
     <div class="list-of-entities">
-        <!-- ngFor -->
+        <router-outlet
+            name="statistic-list"
+        ></router-outlet>
     </div>
     <div class="statistic-block">
-        
+        <router-outlet
+            name="statistic-block"
+        ></router-outlet>
     </div>
 </div>

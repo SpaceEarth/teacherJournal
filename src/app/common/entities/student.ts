@@ -1,11 +1,10 @@
-import { StudentLessonStatistics } from './studentLessonStatistics';
+export class Student {
 
-export interface Student {
-    id: number
-    name: string
-    lastName: string
-    studentLessonStatistics: Array<StudentLessonStatistics>
-    averageMark?: number | null
-    addres?: string
-    description?: string
+    constructor(
+        public id: number,
+        public name: string,
+        public lastName: string,
+        public address?: string,
+        public description?: string
+    ) {}
 }

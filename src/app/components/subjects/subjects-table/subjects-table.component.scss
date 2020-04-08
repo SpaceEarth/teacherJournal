@@ -1,0 +1,61 @@
+@import 'src/app/styles/global/variables.scss';
+
+h2 {
+    color: white;
+    font-size: 2rem;
+    margin-top: 40px;
+    margin-left: 55px;
+}
+
+.new-date-wrapper {
+    width: 620px;
+    margin: 0 auto;
+}
+
+.new-date-button-wrapper {
+    width: 620px;
+    margin: 0 auto;
+    height: 0;
+
+    .add-new-date {
+        position: relative;
+        top: 30px;
+        left: 10px;
+        margin-top: 0;
+        margin-right: 0;
+        margin-left: auto;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        opacity: 0.95;
+        background-color: $TEACHER_JOURNAL_ORANGE;
+    }
+    
+    .add-new-date:hover {
+        cursor: pointer;
+        opacity: 1;
+    }
+}
+
+mat-table {
+    width: 620px;
+    margin: 40px auto 0 auto;
+    background-color: $APPLICATION_TABLE_BACKGROUND_COLOR;
+    
+    mat-header-cell {
+        background-color: $APPLICATION_TABLE_HEADER_BACKGROUND_COLOR;
+    }
+    
+    mat-header-cell:hover {
+        cursor: pointer;
+    }
+
+    mat-header-cell, mat-cell {
+        color: white;
+        border: 2px solid white;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 1.25rem;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+}
